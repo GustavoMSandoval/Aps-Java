@@ -4,9 +4,7 @@
  */
 package controller;
 
-import model.Administrador;
-import model.Pessoa;
-import model.Usuario;
+import view.LoginUsuario;
 
 
 /**
@@ -19,8 +17,10 @@ public class PrincipalAPS {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-       
+        LoginUsuario LoginUsuarioFrame = new LoginUsuario();
+        LoginUsuarioFrame.setVisible(true);
+        LoginUsuarioFrame.pack();
+        LoginUsuarioFrame.setLocation(null);
     }
     
 }
