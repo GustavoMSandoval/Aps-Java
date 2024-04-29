@@ -4,6 +4,11 @@
  */
 package controller;
 
+import model.Administrador;
+import model.Pessoa;
+import model.Usuario;
+
+
 /**
  *
  * @author Gustavo
@@ -14,7 +19,8 @@ public class PrincipalAPS {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       System.out.print("Oi");
+        // TODO code application logic here
+       
     }
     
 }

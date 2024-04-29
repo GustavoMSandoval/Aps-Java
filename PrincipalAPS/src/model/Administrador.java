@@ -9,6 +9,20 @@ package model;
  * @author Gustavo
  */
 public class Administrador extends Pessoa {
+    private boolean AcessoEspecial;
+    
+    
+
+    public boolean getAcessoEspecial() {
+        if(this.getCargo() != false){return true;}
+        return false;
+        
+    }
+
+    
+    
+    
+    
     
 }
  

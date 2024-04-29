@@ -9,5 +9,17 @@ package model;
  * @author Gustavo
  */
 public class Usuario extends Pessoa{
+    private boolean permissao;
+
+    public boolean getPermissao() {
+        if(this.getCargo() != true){return false;}
+        return true;
+        
+    }
+
+   
+
     
+
+        
 }
