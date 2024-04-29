@@ -9,5 +9,6 @@ package model;
  * @author Gustavo
  */
 public class Pessoa {
+    private String nome;
     
 }
