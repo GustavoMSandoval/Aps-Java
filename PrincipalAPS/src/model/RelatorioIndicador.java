@@ -8,6 +8,6 @@ package model;
  *
  * @author Gustavo
  */
-public class RelatorioPessoa {
+public class RelatorioIndicador {
     
 }
