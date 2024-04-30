@@ -177,7 +177,7 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     private void enviarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarLoginActionPerformed
         // TODO add your handling code here:
-        Home HomeFrame = new Home();
+        Home HomeFrame = new Home(); // pode ir para Home após logar
         HomeFrame.setVisible(true);
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
@@ -186,7 +186,7 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     private void cadastroLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroLoginActionPerformed
         // TODO add your handling code here:
-        CadastroUsuario CadastroUsuarioFrame = new CadastroUsuario();
+        CadastroUsuario CadastroUsuarioFrame = new CadastroUsuario(); // Caso não tenha conta ele pode ir cadastrar-se
         CadastroUsuarioFrame.setVisible(true);
         CadastroUsuarioFrame.pack();
         CadastroUsuarioFrame.setLocationRelativeTo(null);
