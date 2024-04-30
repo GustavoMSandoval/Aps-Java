@@ -4,10 +4,16 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Gustavo
  */
-public class Indicador {
+public interface Indicador {
+    
+    void setIndicador(String descricao, Date data, double valor_registro);
+        
+    RelatorioIndicador[] BuscarIndicador();
     
 }
