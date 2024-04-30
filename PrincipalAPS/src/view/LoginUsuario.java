@@ -163,7 +163,7 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     private void enviarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarLoginActionPerformed
         // TODO add your handling code here:
-        Home HomeFrame = new Home();
+        Home HomeFrame = new Home(); // inicia um novo JFrame Home à partir do momento em que todos os dados são inseridos corretamente
         HomeFrame.setVisible(true);
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
