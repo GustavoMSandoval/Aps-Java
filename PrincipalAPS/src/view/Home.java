@@ -41,8 +41,8 @@ public class Home extends javax.swing.JFrame {
         btnAbrir = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         consumoHome = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
+        participacaoHome = new javax.swing.JToggleButton();
+        reducaoHome = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
 
         jToggleButton1.setText("oiiii");
@@ -97,9 +97,19 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton3.setText("Participação");
+        participacaoHome.setText("Participação");
+        participacaoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                participacaoHomeActionPerformed(evt);
+            }
+        });
 
-        jToggleButton5.setText("Redução");
+        reducaoHome.setText("Redução");
+        reducaoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reducaoHomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout parteSuperiorLayout = new javax.swing.GroupLayout(parteSuperior);
         parteSuperior.setLayout(parteSuperiorLayout);
@@ -113,9 +123,9 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton3)
+                .addComponent(participacaoHome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                 .addComponent(btnAbrir)
                 .addGap(34, 34, 34)
@@ -133,8 +143,8 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(btnFechar)
                         .addComponent(jToggleButton2)
                         .addComponent(consumoHome)
-                        .addComponent(jToggleButton3)
-                        .addComponent(jToggleButton5)))
+                        .addComponent(participacaoHome)
+                        .addComponent(reducaoHome)))
                 .addContainerGap())
         );
 
@@ -164,6 +174,7 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -214,6 +225,26 @@ public class Home extends javax.swing.JFrame {
         view_ConsumoSetorFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
     }//GEN-LAST:event_consumoHomeActionPerformed
+
+    private void participacaoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_participacaoHomeActionPerformed
+        view_ParticipacaoRenovavel view_ParticipacaoRenovavelFrame = new view_ParticipacaoRenovavel();
+        view_ParticipacaoRenovavelFrame.setVisible(true);
+        view_ParticipacaoRenovavelFrame.pack();
+        view_ParticipacaoRenovavelFrame.setLocationRelativeTo(null);
+        view_ParticipacaoRenovavelFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.dispose();
+                          
+    }//GEN-LAST:event_participacaoHomeActionPerformed
+
+    private void reducaoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reducaoHomeActionPerformed
+        view_ReducaoEmissao view_ReducaoEmissaoFrame = new view_ReducaoEmissao();
+        view_ReducaoEmissaoFrame.setVisible(true);
+        view_ReducaoEmissaoFrame.pack();
+        view_ReducaoEmissaoFrame.setLocationRelativeTo(null);
+        view_ReducaoEmissaoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.dispose();
+                          
+    }//GEN-LAST:event_reducaoHomeActionPerformed
 
     
     
@@ -266,8 +297,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JPanel parteSuperior;
+    private javax.swing.JToggleButton participacaoHome;
+    private javax.swing.JToggleButton reducaoHome;
     // End of variables declaration//GEN-END:variables
 }
