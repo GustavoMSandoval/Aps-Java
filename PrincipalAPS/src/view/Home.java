@@ -6,6 +6,7 @@ package view;
 
 import java.awt.Color;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -38,6 +39,10 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnFechar = new javax.swing.JToggleButton();
         btnAbrir = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        consumoHome = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton5 = new javax.swing.JToggleButton();
         jPanel3 = new javax.swing.JPanel();
 
         jToggleButton1.setText("oiiii");
@@ -83,6 +88,19 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton2.setText("Usuário");
+
+        consumoHome.setText("Consumo");
+        consumoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consumoHomeActionPerformed(evt);
+            }
+        });
+
+        jToggleButton3.setText("Participação");
+
+        jToggleButton5.setText("Redução");
+
         javax.swing.GroupLayout parteSuperiorLayout = new javax.swing.GroupLayout(parteSuperior);
         parteSuperior.setLayout(parteSuperiorLayout);
         parteSuperiorLayout.setHorizontalGroup(
@@ -90,7 +108,15 @@ public class Home extends javax.swing.JFrame {
             .addGroup(parteSuperiorLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 635, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                 .addComponent(btnAbrir)
                 .addGap(34, 34, 34)
                 .addComponent(btnFechar)
@@ -100,10 +126,15 @@ public class Home extends javax.swing.JFrame {
             parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parteSuperiorLayout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnFechar)
-                    .addComponent(btnAbrir))
+                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAbrir)
+                    .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(btnFechar)
+                        .addComponent(jToggleButton2)
+                        .addComponent(consumoHome)
+                        .addComponent(jToggleButton3)
+                        .addComponent(jToggleButton5)))
                 .addContainerGap())
         );
 
@@ -117,7 +148,7 @@ public class Home extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -133,7 +164,6 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,14 +196,24 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAbrirMouseEntered
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
-        // TODO add your handling code here:
+        // botão de encerrar o programa
         System.exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnAbrirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseClicked
         if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){this.setExtendedState(Home.MAXIMIZED_BOTH);}
         else{this.setExtendedState(Home.NORMAL);}
+        //aumentar a tela ao clicar no botão
     }//GEN-LAST:event_btnAbrirMouseClicked
+
+    private void consumoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consumoHomeActionPerformed
+        view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
+        view_ConsumoSetorFrame.setVisible(true);
+        view_ConsumoSetorFrame.pack();
+        view_ConsumoSetorFrame.setLocationRelativeTo(null);
+        view_ConsumoSetorFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.dispose();
+    }//GEN-LAST:event_consumoHomeActionPerformed
 
     
     
@@ -220,10 +260,14 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAbrir;
     private javax.swing.JToggleButton btnFechar;
+    private javax.swing.JToggleButton consumoHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JPanel parteSuperior;
     // End of variables declaration//GEN-END:variables
 }

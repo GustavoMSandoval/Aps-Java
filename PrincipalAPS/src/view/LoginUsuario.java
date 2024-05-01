@@ -182,6 +182,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         HomeFrame.setVisible(true);
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
+        HomeFrame.setExtendedState(MAXIMIZED_BOTH);
         this.dispose();
     }//GEN-LAST:event_enviarLoginActionPerformed
 
