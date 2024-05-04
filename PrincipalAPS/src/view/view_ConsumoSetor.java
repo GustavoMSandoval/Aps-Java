@@ -4,7 +4,13 @@
  */
 package view;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import java.io.File;
+import java. awt.Desktop;
+import javax.swing.filechooser.FileNameExtensionFilter;
+        
+
 
 /**
  *
@@ -32,6 +38,7 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        importarArquivo = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,15 +47,32 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(800, 500));
 
+        importarArquivo.setText("jToggleButton3");
+        importarArquivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importarArquivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(importarArquivo)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(importarArquivo)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -83,6 +107,30 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void importarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarArquivoActionPerformed
+        try
+        {
+            
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("excel","xlsx");
+        fileChooser.setFileFilter(filtro);
+        fileChooser.setCurrentDirectory(new File("."));
+        int result = fileChooser.showOpenDialog(null);
+        System.out.println(result);
+        if(result == JFileChooser.APPROVE_OPTION)
+        {
+            File selectedFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            System.out.println(selectedFile);
+            if(!Desktop.isDesktopSupported())
+            {System.out.println("no");}
+            else{Desktop desktop = Desktop.getDesktop();
+            desktop.open(selectedFile);}
+        }
+        else if (result == JFileChooser.CANCEL_OPTION){System.out.println("Cancel");}
+        } 
+        catch(Exception e){System.out.println(e);}
+    }//GEN-LAST:event_importarArquivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,6 +168,7 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton importarArquivo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
