@@ -175,6 +175,7 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,10 +220,10 @@ public class Home extends javax.swing.JFrame {
 
     private void consumoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consumoHomeActionPerformed
         view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
-        view_ConsumoSetorFrame.setVisible(true);
+        view_ConsumoSetorFrame.setVisible(true); 
         view_ConsumoSetorFrame.pack();
         view_ConsumoSetorFrame.setLocationRelativeTo(null);
-        view_ConsumoSetorFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view_ConsumoSetorFrame.setExtendedState(MAXIMIZED_BOTH);
         this.dispose();
     }//GEN-LAST:event_consumoHomeActionPerformed
 
