@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -33,11 +33,11 @@ public class LoginUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nomeLogin = new javax.swing.JTextField();
-        emailLogin = new javax.swing.JTextField();
-        enviarLogin = new javax.swing.JToggleButton();
+        nomeForm = new javax.swing.JTextField();
+        emailForm = new javax.swing.JTextField();
+        enviarForm = new javax.swing.JToggleButton();
         cadastroLogin = new javax.swing.JToggleButton();
-        senhaLogin = new javax.swing.JPasswordField();
+        senhaForm = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,16 +71,16 @@ public class LoginUsuario extends javax.swing.JFrame {
 
         jLabel3.setText("Senha:");
 
-        nomeLogin.setBackground(new java.awt.Color(255, 255, 255));
+        nomeForm.setBackground(new java.awt.Color(255, 255, 255));
 
-        emailLogin.setBackground(new java.awt.Color(255, 255, 255));
+        emailForm.setBackground(new java.awt.Color(255, 255, 255));
 
-        enviarLogin.setBackground(new java.awt.Color(0, 102, 102));
-        enviarLogin.setForeground(new java.awt.Color(255, 255, 255));
-        enviarLogin.setText("Enviar");
-        enviarLogin.addActionListener(new java.awt.event.ActionListener() {
+        enviarForm.setBackground(new java.awt.Color(0, 102, 102));
+        enviarForm.setForeground(new java.awt.Color(255, 255, 255));
+        enviarForm.setText("Enviar");
+        enviarForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarLoginActionPerformed(evt);
+                enviarFormActionPerformed(evt);
             }
         });
 
@@ -93,7 +93,7 @@ public class LoginUsuario extends javax.swing.JFrame {
             }
         });
 
-        senhaLogin.setBackground(new java.awt.Color(255, 255, 255));
+        senhaForm.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Historic", 0, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -108,15 +108,15 @@ public class LoginUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(senhaLogin, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomeLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(senhaForm, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeForm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailLogin, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(emailForm, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(enviarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enviarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                         .addComponent(cadastroLogin)
                         .addGap(67, 67, 67))))
@@ -133,18 +133,18 @@ public class LoginUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(nomeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomeForm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(emailLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(emailForm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(senhaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(senhaForm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enviarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enviarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cadastroLogin))
                 .addGap(76, 76, 76))
         );
@@ -187,7 +187,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void enviarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarLoginActionPerformed
+    private void enviarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarFormActionPerformed
         // TODO add your handling code here:
         Home HomeFrame = new Home(); // pode ir para Home após logar
         HomeFrame.setVisible(true);
@@ -195,7 +195,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         HomeFrame.setLocationRelativeTo(null);
         HomeFrame.setExtendedState(MAXIMIZED_BOTH);
         this.dispose();
-    }//GEN-LAST:event_enviarLoginActionPerformed
+    }//GEN-LAST:event_enviarFormActionPerformed
 
     private void cadastroLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroLoginActionPerformed
         // TODO add your handling code here:
@@ -243,8 +243,8 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton cadastroLogin;
-    private javax.swing.JTextField emailLogin;
-    private javax.swing.JToggleButton enviarLogin;
+    private javax.swing.JTextField emailForm;
+    private javax.swing.JToggleButton enviarForm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -253,7 +253,7 @@ public class LoginUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField nomeLogin;
-    private javax.swing.JPasswordField senhaLogin;
+    private javax.swing.JTextField nomeForm;
+    private javax.swing.JPasswordField senhaForm;
     // End of variables declaration//GEN-END:variables
 }

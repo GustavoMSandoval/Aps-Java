@@ -123,17 +123,17 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="senhaLogin" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="nomeLogin" alignment="0" pref="350" max="32767" attributes="0"/>
+                                      <Component id="senhaForm" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="nomeForm" alignment="0" pref="350" max="32767" attributes="0"/>
                                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="emailLogin" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="emailForm" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="enviarLogin" min="-2" pref="111" max="-2" attributes="0"/>
+                                  <Component id="enviarForm" min="-2" pref="111" max="-2" attributes="0"/>
                                   <EmptySpace pref="125" max="32767" attributes="0"/>
                                   <Component id="cadastroLogin" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
@@ -155,18 +155,18 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="nomeLogin" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="nomeForm" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="emailLogin" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="emailForm" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="senhaLogin" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="senhaForm" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace pref="70" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="enviarLogin" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="enviarForm" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="cadastroLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
@@ -190,21 +190,21 @@
                     <Property name="text" type="java.lang.String" value="Senha:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="nomeLogin">
+                <Component class="javax.swing.JTextField" name="nomeForm">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="emailLogin">
+                <Component class="javax.swing.JTextField" name="emailForm">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="enviarLogin">
+                <Component class="javax.swing.JToggleButton" name="enviarForm">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="66" green="66" red="0" type="rgb"/>
@@ -215,7 +215,7 @@
                     <Property name="text" type="java.lang.String" value="Enviar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarLoginActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enviarFormActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JToggleButton" name="cadastroLogin">
@@ -232,7 +232,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastroLoginActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="senhaLogin">
+                <Component class="javax.swing.JPasswordField" name="senhaForm">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
