@@ -12,7 +12,7 @@ import java.util.Date;
 public class RelatorioIndicador {
    private String descricao;
    private Date data;
-   private double valor_registro;
+   private float valor_registro;
    
 
    public RelatorioIndicador getRelatorioIndicador(){
@@ -26,7 +26,7 @@ public class RelatorioIndicador {
    }
 
    // Método de definição para atribuir valores ao objeto
-   public void setRelatorioIndicador(String descricao, Date data, double valor_registro){
+   public void setRelatorioIndicador(String descricao, Date data, float valor_registro){
        this.descricao = descricao;
        this.data = data;
        this.valor_registro = valor_registro;
@@ -49,11 +49,11 @@ public class RelatorioIndicador {
        this.data = data;
    }
 
-   public double getValor_registro() {
+   public float getValor_registro() {
        return valor_registro;
    }
 
-   public void setValor_registro(double valor_registro) {
+   public void setValor_registro(float valor_registro) {
        this.valor_registro = valor_registro;
    }
 }

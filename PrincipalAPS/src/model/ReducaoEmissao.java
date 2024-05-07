@@ -16,7 +16,7 @@ public class ReducaoEmissao extends RelatorioIndicador implements Indicador  {
     
     RelatorioIndicador[] dadosIndicador = new RelatorioIndicador[10];
   
-   public void setIndicador(String descricao, Date data, double valor_registro){ 
+   public void setIndicador(String descricao, Date data, float valor_registro){ 
        //parte de inserir dados que vier na tabela definida//
        
        //parte de inserir dados que vier na tabela definida//

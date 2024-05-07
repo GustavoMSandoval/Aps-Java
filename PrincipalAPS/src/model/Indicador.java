@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 public interface Indicador {
     
-    void setIndicador(String descricao, Date data, double valor_registro);
+    void setIndicador(String descricao, Date data, float valor_registro)throws ParseException;
         
     RelatorioIndicador[] BuscarIndicador();
     
