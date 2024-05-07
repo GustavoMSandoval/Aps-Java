@@ -4,11 +4,20 @@
  */
 package view;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import java.io.File;
-import java. awt.Desktop;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import model.*;
         
 
 
@@ -176,29 +185,60 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void importarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarArquivoActionPerformed
-        try
-        {
-            
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("excel","xlsx");
-        fileChooser.setFileFilter(filtro);
-        fileChooser.setCurrentDirectory(new File("."));
-        int result = fileChooser.showOpenDialog(null);
-        System.out.println(result);
-        if(result == JFileChooser.APPROVE_OPTION)
-        {
-            File selectedFile = new File(fileChooser.getSelectedFile().getAbsolutePath());
-            System.out.println(selectedFile);
-            if(!Desktop.isDesktopSupported())
-            {System.out.println("no");}
-            else{Desktop desktop = Desktop.getDesktop();
-            desktop.open(selectedFile);}
-        }
-        else if (result == JFileChooser.CANCEL_OPTION){System.out.println("Cancel");}
-        } 
-        catch(Exception e){System.out.println(e);}
-    }//GEN-LAST:event_importarArquivoActionPerformed
+        JFileChooser fileChooser = new JFileChooser(); 
+        fileChooser.setDialogTitle("Selecione o arquivo Excel");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Arquivos Excel", "xls", "xlsx"));
 
+        int userSelection = fileChooser.showOpenDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            lerExcel(file);
+        }
+    }//GEN-LAST:event_importarArquivoActionPerformed
+private void lerExcel(File file) {
+         ConsumoSetor consumo = new ConsumoSetor();  
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            Workbook workbook = WorkbookFactory.create(fileInputStream);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            StringBuilder data = new StringBuilder();
+
+              for (int i = 1; i < 10; i++) {
+                int Contador = 0;
+                Row row = sheet.getRow(i);
+                if (row != null) {
+                    
+                    Cell cell = row.getCell(Contador);
+                    Contador++;
+                    String valorCell = cell != null ? cell.getStringCellValue() : ""; // Obtém o valor da célula como texto
+                    System.out.println(valorCell);
+                    Cell cell1 = row.getCell(Contador);
+                    Contador++;
+                    
+                    Date dataInfo = null;
+                    if (cell1 != null) {
+                        dataInfo = cell1.getDateCellValue(); // Obtém o valor da célula como data
+                    }                 
+                    System.out.println(dataInfo);
+                    
+                    Cell cell2 = row.getCell(Contador);
+                    float valorFloat = cell2 != null ? (float) cell2.getNumericCellValue() : 0.0f; // Obtém o valor da célula como float
+                    Contador++;
+                    System.out.println(valorFloat);        
+                    consumo.setIndicador(valorCell, dataInfo, valorFloat);
+                  }    
+              }
+          
+            workbook.close();
+            
+        } catch (IOException | InvalidFormatException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao ler o arquivo Excel: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private void btnAbrirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseClicked
         if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){this.setExtendedState(Home.MAXIMIZED_BOTH);}
         else{this.setExtendedState(Home.NORMAL);}
