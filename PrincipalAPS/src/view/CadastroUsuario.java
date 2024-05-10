@@ -209,13 +209,17 @@ public class CadastroUsuario extends javax.swing.JFrame {
         conectar.set$Host("3307");
         conectar.set$DB("mydb");
         conectar.Conexao("root","");       
-        conectar.Consulta(emailForm.getText(),nomeForm.getText(),senhaForm.getText());
+        conectar.InsercaoValoresForm(emailForm.getText(),nomeForm.getText(),senhaForm.getText());
+        
         Home HomeFrame = new Home(); // Após cadastro será redirecionado para Home
+        HomeFrame.usuario(nomeForm.getText());
         HomeFrame.setVisible(true);
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
         this.dispose();
+        
         JOptionPane.showMessageDialog(null,"Conta criada com sucesso");
+        
         }
         
         } catch(Exception e) 

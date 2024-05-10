@@ -4,15 +4,25 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import view.view_ConsumoSetor;
-import view.view_ParticipacaoRenovavel;
-import view.view_ReducaoEmissao;
+import model.ConsumoSetor;
+import model.Graficos.Graficos;
+import model.Verificar_Conectar.ConexaoVerificacao;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
+import view.*;
 
 /**
  *
@@ -26,8 +36,36 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        MostraGrafico();
+        
     }
-
+        private  void MostraGrafico() {
+         
+        ConsumoSetor consumoSetor = new ConsumoSetor();
+        
+        DefaultPieDataset barDataset  = new DefaultPieDataset();
+        barDataset.setValue("Consumo", new Float(consumoSetor.getValor_registro()));
+       
+        
+        JFreeChart piechart = ChartFactory.createPieChart
+        ("Consumo", barDataset,false,true,false);
+        
+        PiePlot  piePlot =( PiePlot) piechart.getPlot();
+        
+        piePlot.setSectionPaint("Consumo", new Color(0,102,102));
+        
+        
+        piePlot.setBackgroundPaint(Color.white);
+        
+        ChartPanel barChartPanel = new ChartPanel(piechart);
+        
+        painelGrafico.removeAll();
+        painelGrafico.add(barChartPanel,BorderLayout.CENTER);
+        painelGrafico.validate();
+      
+    
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,27 +78,27 @@ public class Home extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         parteSuperior = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         btnFechar = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         usuarioHome = new javax.swing.JToggleButton();
         consumoHome = new javax.swing.JToggleButton();
         participacaoHome = new javax.swing.JToggleButton();
         reducaoHome = new javax.swing.JToggleButton();
-        jPanel3 = new javax.swing.JPanel();
+        painelGrafico = new javax.swing.JPanel();
 
         jToggleButton1.setText("oiiii");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1930, 1023));
 
         parteSuperior.setBackground(new java.awt.Color(35, 40, 45));
         parteSuperior.setPreferredSize(new java.awt.Dimension(800, 100));
-
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Home");
 
         btnFechar.setBackground(new java.awt.Color(35, 40, 45));
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete_32px.png"))); // NOI18N
@@ -71,107 +109,141 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        usuarioHome.setText("Usuário");
-        usuarioHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioHomeActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("Home");
 
-        consumoHome.setText("Consumo");
-        consumoHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consumoHomeActionPerformed(evt);
-            }
-        });
-
-        participacaoHome.setText("Participação");
-        participacaoHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                participacaoHomeActionPerformed(evt);
-            }
-        });
-
-        reducaoHome.setText("Redução");
-        reducaoHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reducaoHomeActionPerformed(evt);
-            }
-        });
+        usuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        usuario.setForeground(new java.awt.Color(204, 204, 204));
+        usuario.setText("nome");
 
         javax.swing.GroupLayout parteSuperiorLayout = new javax.swing.GroupLayout(parteSuperior);
         parteSuperior.setLayout(parteSuperiorLayout);
         parteSuperiorLayout.setHorizontalGroup(
             parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(parteSuperiorLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addComponent(usuarioHome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(participacaoHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1389, Short.MAX_VALUE)
+                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127)
                 .addComponent(btnFechar)
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
         parteSuperiorLayout.setVerticalGroup(
             parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(parteSuperiorLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(parteSuperiorLayout.createSequentialGroup()
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parteSuperiorLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnFechar)
-                    .addComponent(usuarioHome)
-                    .addComponent(consumoHome)
-                    .addComponent(participacaoHome)
-                    .addComponent(reducaoHome))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(35, 40, 45));
+
+        usuarioHome.setBackground(new java.awt.Color(35, 40, 45));
+        usuarioHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        usuarioHome.setForeground(new java.awt.Color(204, 204, 204));
+        usuarioHome.setText("Usuário");
+        usuarioHome.setBorder(null);
+        usuarioHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioHomeActionPerformed(evt);
+            }
+        });
+
+        consumoHome.setBackground(new java.awt.Color(35, 40, 45));
+        consumoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        consumoHome.setForeground(new java.awt.Color(204, 204, 204));
+        consumoHome.setText("Consumo");
+        consumoHome.setBorder(null);
+        consumoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consumoHomeActionPerformed(evt);
+            }
+        });
+
+        participacaoHome.setBackground(new java.awt.Color(35, 40, 45));
+        participacaoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        participacaoHome.setForeground(new java.awt.Color(204, 204, 204));
+        participacaoHome.setText("Participação");
+        participacaoHome.setBorder(null);
+        participacaoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                participacaoHomeActionPerformed(evt);
+            }
+        });
+
+        reducaoHome.setBackground(new java.awt.Color(35, 40, 45));
+        reducaoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        reducaoHome.setForeground(new java.awt.Color(204, 204, 204));
+        reducaoHome.setText("Redução");
+        reducaoHome.setBorder(null);
+        reducaoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reducaoHomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 99, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usuarioHome)
+                    .addComponent(reducaoHome)
+                    .addComponent(participacaoHome)
+                    .addComponent(consumoHome))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(usuarioHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(participacaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(532, Short.MAX_VALUE))
         );
+
+        painelGrafico.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(parteSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(parteSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, 1930, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(290, 290, 290))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(painelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,7 +300,11 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
         }catch(Exception e) {System.out.println(e);}
     }//GEN-LAST:event_usuarioHomeActionPerformed
-
+     
+    public void usuario(String nome)
+    {
+        this.usuario.setText(nome);
+    }
     
     
     
@@ -278,9 +354,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JPanel painelGrafico;
     private javax.swing.JPanel parteSuperior;
     private javax.swing.JToggleButton participacaoHome;
     private javax.swing.JToggleButton reducaoHome;
+    private javax.swing.JLabel usuario;
     private javax.swing.JToggleButton usuarioHome;
     // End of variables declaration//GEN-END:variables
 }
