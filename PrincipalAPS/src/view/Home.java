@@ -10,6 +10,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import view.view_ConsumoSetor;
+import view.view_ParticipacaoRenovavel;
+import view.view_ReducaoEmissao;
 
 /**
  *
@@ -39,8 +42,7 @@ public class Home extends javax.swing.JFrame {
         parteSuperior = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnFechar = new javax.swing.JToggleButton();
-        btnAbrir = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        usuarioHome = new javax.swing.JToggleButton();
         consumoHome = new javax.swing.JToggleButton();
         participacaoHome = new javax.swing.JToggleButton();
         reducaoHome = new javax.swing.JToggleButton();
@@ -69,27 +71,12 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btnAbrir.setBackground(new java.awt.Color(35, 40, 45));
-        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/full_screen_32px.png"))); // NOI18N
-        btnAbrir.setBorder(null);
-        btnAbrir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAbrirMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAbrirMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAbrirMouseExited(evt);
-            }
-        });
-        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+        usuarioHome.setText("Usuário");
+        usuarioHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirActionPerformed(evt);
+                usuarioHomeActionPerformed(evt);
             }
         });
-
-        jToggleButton2.setText("Usuário");
 
         consumoHome.setText("Consumo");
         consumoHome.addActionListener(new java.awt.event.ActionListener() {
@@ -120,16 +107,14 @@ public class Home extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36)
-                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usuarioHome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(participacaoHome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
-                .addComponent(btnAbrir)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
                 .addComponent(btnFechar)
                 .addContainerGap())
         );
@@ -137,15 +122,13 @@ public class Home extends javax.swing.JFrame {
             parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parteSuperiorLayout.createSequentialGroup()
                 .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAbrir)
-                    .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(btnFechar)
-                        .addComponent(jToggleButton2)
-                        .addComponent(consumoHome)
-                        .addComponent(participacaoHome)
-                        .addComponent(reducaoHome)))
+                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnFechar)
+                    .addComponent(usuarioHome)
+                    .addComponent(consumoHome)
+                    .addComponent(participacaoHome)
+                    .addComponent(reducaoHome))
                 .addContainerGap())
         );
 
@@ -195,57 +178,56 @@ public class Home extends javax.swing.JFrame {
 
 
     
-    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        
-    }//GEN-LAST:event_btnAbrirActionPerformed
-
-    private void btnAbrirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAbrirMouseExited
-
-    private void btnAbrirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseEntered
-
-    }//GEN-LAST:event_btnAbrirMouseEntered
-
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         // botão de encerrar o programa
         System.exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
 
-    private void btnAbrirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseClicked
-        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){this.setExtendedState(Home.MAXIMIZED_BOTH);}
-        else{this.setExtendedState(Home.NORMAL);}
-        //aumentar a tela ao clicar no botão
-    }//GEN-LAST:event_btnAbrirMouseClicked
-
     private void consumoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consumoHomeActionPerformed
+        try {
         view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
         view_ConsumoSetorFrame.setVisible(true); 
         view_ConsumoSetorFrame.pack();
         view_ConsumoSetorFrame.setLocationRelativeTo(null);
         view_ConsumoSetorFrame.setExtendedState(MAXIMIZED_BOTH);
         this.dispose();
+        }catch(Exception e) {System.out.println(e);}
     }//GEN-LAST:event_consumoHomeActionPerformed
 
     private void participacaoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_participacaoHomeActionPerformed
+        try {
         view_ParticipacaoRenovavel view_ParticipacaoRenovavelFrame = new view_ParticipacaoRenovavel();
         view_ParticipacaoRenovavelFrame.setVisible(true);
         view_ParticipacaoRenovavelFrame.pack();
         view_ParticipacaoRenovavelFrame.setLocationRelativeTo(null);
         view_ParticipacaoRenovavelFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
+        }catch(Exception e) {System.out.println(e);}
                           
     }//GEN-LAST:event_participacaoHomeActionPerformed
 
     private void reducaoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reducaoHomeActionPerformed
+        try {
         view_ReducaoEmissao view_ReducaoEmissaoFrame = new view_ReducaoEmissao();
         view_ReducaoEmissaoFrame.setVisible(true);
         view_ReducaoEmissaoFrame.pack();
         view_ReducaoEmissaoFrame.setLocationRelativeTo(null);
         view_ReducaoEmissaoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
+        }catch(Exception e) {System.out.println(e);}
                           
     }//GEN-LAST:event_reducaoHomeActionPerformed
+
+    private void usuarioHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioHomeActionPerformed
+        try {
+        view_Usuario view_UsuarioFrame = new view_Usuario();
+        view_UsuarioFrame.setVisible(true);
+        view_UsuarioFrame.pack();
+        view_UsuarioFrame.setLocationRelativeTo(null);
+        view_UsuarioFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.dispose();
+        }catch(Exception e) {System.out.println(e);}
+    }//GEN-LAST:event_usuarioHomeActionPerformed
 
     
     
@@ -290,16 +272,15 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnAbrir;
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton consumoHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JPanel parteSuperior;
     private javax.swing.JToggleButton participacaoHome;
     private javax.swing.JToggleButton reducaoHome;
+    private javax.swing.JToggleButton usuarioHome;
     // End of variables declaration//GEN-END:variables
 }

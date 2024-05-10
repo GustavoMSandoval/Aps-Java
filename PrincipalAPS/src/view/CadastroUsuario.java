@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.Verificar_Conectar.ConexaoVerificacao;
 import model.Verificar_Conectar.VerificacaoPessoa;
 
 /**
@@ -37,7 +39,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         nomeForm = new javax.swing.JTextField();
         emailForm = new javax.swing.JTextField();
-        enviarForm = new javax.swing.JToggleButton();
+        enviarCadastro = new javax.swing.JToggleButton();
         loginCadastro = new javax.swing.JToggleButton();
         senhaForm = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
@@ -76,12 +78,12 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
         emailForm.setBackground(new java.awt.Color(255, 255, 255));
 
-        enviarForm.setBackground(new java.awt.Color(0, 102, 102));
-        enviarForm.setForeground(new java.awt.Color(255, 255, 255));
-        enviarForm.setText("Enviar");
-        enviarForm.addActionListener(new java.awt.event.ActionListener() {
+        enviarCadastro.setBackground(new java.awt.Color(0, 102, 102));
+        enviarCadastro.setForeground(new java.awt.Color(255, 255, 255));
+        enviarCadastro.setText("Enviar");
+        enviarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarFormActionPerformed(evt);
+                enviarCadastroActionPerformed(evt);
             }
         });
 
@@ -113,7 +115,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(enviarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enviarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(loginCadastro)
                         .addGap(65, 65, 65))
@@ -152,7 +154,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addComponent(senhaForm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enviarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enviarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(loginCadastro))
                 .addGap(76, 76, 76))
         );
@@ -194,22 +196,32 @@ public class CadastroUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void enviarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarFormActionPerformed
-        // TODO add your handling code here:
+    private void enviarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarCadastroActionPerformed
+        
+        
         try {
-            
-        VerificacaoPessoa verificar = new VerificacaoPessoa
+        VerificacaoPessoa verifica = new VerificacaoPessoa
         (nomeForm.getText(), emailForm.getText(), senhaForm.getText());
-        if (verificar.getAprovado() == true) {
-                Home HomeFrame = new Home(); // Após cadastro será redirecionado para Home
-                HomeFrame.setVisible(true);
-                HomeFrame.pack();
-                HomeFrame.setLocationRelativeTo(null);
-                this.dispose();
+        if(verifica.getAprovado() == true) 
+        {
+        
+        ConexaoVerificacao conectar = new ConexaoVerificacao();
+        conectar.set$Host("3307");
+        conectar.set$DB("mydb");
+        conectar.Conexao("root","");       
+        conectar.Consulta(emailForm.getText(),nomeForm.getText(),senhaForm.getText());
+        Home HomeFrame = new Home(); // Após cadastro será redirecionado para Home
+        HomeFrame.setVisible(true);
+        HomeFrame.pack();
+        HomeFrame.setLocationRelativeTo(null);
+        this.dispose();
+        JOptionPane.showMessageDialog(null,"Conta criada com sucesso");
         }
-             } catch (Exception e) {System.out.println(e);}
-
-    }//GEN-LAST:event_enviarFormActionPerformed
+        
+        } catch(Exception e) 
+        {System.out.println(e);}
+       
+    }//GEN-LAST:event_enviarCadastroActionPerformed
 
     private void loginCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCadastroActionPerformed
         // TODO add your handling code here:
@@ -261,7 +273,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField emailForm;
-    private javax.swing.JToggleButton enviarForm;
+    private javax.swing.JToggleButton enviarCadastro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
