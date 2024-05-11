@@ -4,12 +4,30 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import model.ConsumoSetor;
+import model.Graficos.Graficos;
+import model.Verificar_Conectar.ConexaoVerificacao;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.DefaultCategoryItemRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import view.*;
 
 /**
  *
@@ -23,8 +41,71 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        MostraGraficoPizza();
+        MostraGraficoBarra();
+        
     }
-
+        private  void MostraGraficoPizza() {
+         
+        ConsumoSetor consumoSetor = new ConsumoSetor();
+        
+        DefaultPieDataset barDataset  = new DefaultPieDataset();
+        barDataset.setValue("Consumo", new Float(8.0f));
+        barDataset.setValue("Economia", new Float(13.0f));
+        barDataset.setValue("Gastos", new Float(29.0f));
+       
+        
+        JFreeChart piechart = ChartFactory.createPieChart
+        ("Consumo", barDataset,false,true,false);
+        
+        PiePlot  piePlot =( PiePlot) piechart.getPlot();
+        
+        piePlot.setSectionPaint("Consumo", new Color(0,102,102));
+        piePlot.setSectionPaint("Economia", new Color(255,0,0));
+        piePlot.setSectionPaint("Gastos", new Color(255,255,0));
+        
+        
+        piePlot.setBackgroundPaint(Color.white);
+        
+        ChartPanel barChartPanel = new ChartPanel(piechart);
+        
+        painelGrafico2.removeAll();
+        painelGrafico2.add(barChartPanel,BorderLayout.CENTER);
+        painelGrafico2.validate();
+      
+    
+}
+        private void MostraGraficoBarra()
+        {
+            //cria data set
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            dataset.setValue(289,"Gerado","Consumo");
+            dataset.setValue(235,"Gerado","Economia");
+            dataset.setValue(456,"Gerado","Gastos");
+            
+            //cria chart
+            JFreeChart lineChart = ChartFactory.createLineChart
+        ("Produção ao mês","mês","resultado",dataset,PlotOrientation.VERTICAL,false,true,false);
+            
+            //cria plot object
+            CategoryPlot lineCategoryPlot = lineChart.getCategoryPlot();
+            
+            lineCategoryPlot.setBackgroundPaint(Color.white);
+            
+            
+            //cria objeto render para mostrar o chart
+            LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
+            Color lineChartColor = new Color(204,0,51);
+            lineRenderer.setSeriesPaint(0, lineChartColor);
+            
+            ChartPanel lineChartPanel = new ChartPanel(lineChart);
+            painelGrafico1.removeAll();
+            painelGrafico1.add(lineChartPanel,BorderLayout.CENTER);
+            painelGrafico1.validate();
+      
+        }
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,28 +118,33 @@ public class Home extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         parteSuperior = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         btnFechar = new javax.swing.JToggleButton();
-        btnAbrir = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
+        ola = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        usuarioHome = new javax.swing.JToggleButton();
         consumoHome = new javax.swing.JToggleButton();
         participacaoHome = new javax.swing.JToggleButton();
         reducaoHome = new javax.swing.JToggleButton();
-        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        painelGrafico1 = new javax.swing.JPanel();
+        painelGrafico2 = new javax.swing.JPanel();
+        painelGrafico3 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
 
         jToggleButton1.setText("oiiii");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1930, 1023));
 
         parteSuperior.setBackground(new java.awt.Color(35, 40, 45));
         parteSuperior.setPreferredSize(new java.awt.Dimension(800, 100));
-
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("Home");
 
         btnFechar.setBackground(new java.awt.Color(35, 40, 45));
         btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete_32px.png"))); // NOI18N
@@ -69,184 +155,266 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btnAbrir.setBackground(new java.awt.Color(35, 40, 45));
-        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/full_screen_32px.png"))); // NOI18N
-        btnAbrir.setBorder(null);
-        btnAbrir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAbrirMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAbrirMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAbrirMouseExited(evt);
-            }
-        });
-        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel1.setText("Home");
 
-        jToggleButton2.setText("Usuário");
+        usuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        usuario.setForeground(new java.awt.Color(204, 204, 204));
+        usuario.setText("nome");
 
-        consumoHome.setText("Consumo");
-        consumoHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consumoHomeActionPerformed(evt);
-            }
-        });
-
-        participacaoHome.setText("Participação");
-        participacaoHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                participacaoHomeActionPerformed(evt);
-            }
-        });
-
-        reducaoHome.setText("Redução");
-        reducaoHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reducaoHomeActionPerformed(evt);
-            }
-        });
+        ola.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        ola.setForeground(new java.awt.Color(204, 204, 204));
+        ola.setText("Olá");
 
         javax.swing.GroupLayout parteSuperiorLayout = new javax.swing.GroupLayout(parteSuperior);
         parteSuperior.setLayout(parteSuperiorLayout);
         parteSuperiorLayout.setHorizontalGroup(
             parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(parteSuperiorLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(participacaoHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
-                .addComponent(btnAbrir)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ola, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(btnFechar)
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
         parteSuperiorLayout.setVerticalGroup(
             parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parteSuperiorLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAbrir)
-                    .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(btnFechar)
-                        .addComponent(jToggleButton2)
-                        .addComponent(consumoHome)
-                        .addComponent(participacaoHome)
-                        .addComponent(reducaoHome)))
-                .addContainerGap())
+            .addGroup(parteSuperiorLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(parteSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ola, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(parteSuperiorLayout.createSequentialGroup()
+                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(35, 40, 45));
+
+        usuarioHome.setBackground(new java.awt.Color(35, 40, 45));
+        usuarioHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        usuarioHome.setForeground(new java.awt.Color(204, 204, 204));
+        usuarioHome.setText("Usuário");
+        usuarioHome.setBorder(null);
+        usuarioHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioHomeActionPerformed(evt);
+            }
+        });
+
+        consumoHome.setBackground(new java.awt.Color(35, 40, 45));
+        consumoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        consumoHome.setForeground(new java.awt.Color(204, 204, 204));
+        consumoHome.setText("Consumo");
+        consumoHome.setBorder(null);
+        consumoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consumoHomeActionPerformed(evt);
+            }
+        });
+
+        participacaoHome.setBackground(new java.awt.Color(35, 40, 45));
+        participacaoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        participacaoHome.setForeground(new java.awt.Color(204, 204, 204));
+        participacaoHome.setText("Participação");
+        participacaoHome.setBorder(null);
+        participacaoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                participacaoHomeActionPerformed(evt);
+            }
+        });
+
+        reducaoHome.setBackground(new java.awt.Color(35, 40, 45));
+        reducaoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        reducaoHome.setForeground(new java.awt.Color(204, 204, 204));
+        reducaoHome.setText("Redução");
+        reducaoHome.setBorder(null);
+        reducaoHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reducaoHomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 99, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usuarioHome)
+                    .addComponent(reducaoHome)
+                    .addComponent(participacaoHome)
+                    .addComponent(consumoHome))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(usuarioHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85)
+                .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(participacaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        painelGrafico1.setPreferredSize(new java.awt.Dimension(400, 400));
+        painelGrafico1.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(painelGrafico1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 430, 380));
+
+        painelGrafico2.setPreferredSize(new java.awt.Dimension(400, 400));
+        painelGrafico2.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(painelGrafico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 450, 480, 390));
+
+        painelGrafico3.setPreferredSize(new java.awt.Dimension(400, 400));
+        painelGrafico3.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(painelGrafico3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 450, 510, 390));
+
+        jPanel11.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel11.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 0, 0)));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 310, -1));
+
+        jPanel13.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel13.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 0, 0)));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, -1, -1));
+
+        jPanel14.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel14.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 0, 0)));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 80, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(parteSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(parteSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, 1930, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1715, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(parteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1930, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     
-    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        
-    }//GEN-LAST:event_btnAbrirActionPerformed
-
-    private void btnAbrirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAbrirMouseExited
-
-    private void btnAbrirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseEntered
-
-    }//GEN-LAST:event_btnAbrirMouseEntered
-
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         // botão de encerrar o programa
         System.exit(0);
     }//GEN-LAST:event_btnFecharActionPerformed
 
-    private void btnAbrirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirMouseClicked
-        if(this.getExtendedState()!= Home.MAXIMIZED_BOTH){this.setExtendedState(Home.MAXIMIZED_BOTH);}
-        else{this.setExtendedState(Home.NORMAL);}
-        //aumentar a tela ao clicar no botão
-    }//GEN-LAST:event_btnAbrirMouseClicked
-
     private void consumoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consumoHomeActionPerformed
+        try {
         view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
         view_ConsumoSetorFrame.setVisible(true); 
         view_ConsumoSetorFrame.pack();
         view_ConsumoSetorFrame.setLocationRelativeTo(null);
         view_ConsumoSetorFrame.setExtendedState(MAXIMIZED_BOTH);
         this.dispose();
+        }catch(Exception e) {System.out.println(e);}
     }//GEN-LAST:event_consumoHomeActionPerformed
 
     private void participacaoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_participacaoHomeActionPerformed
+        try {
         view_ParticipacaoRenovavel view_ParticipacaoRenovavelFrame = new view_ParticipacaoRenovavel();
         view_ParticipacaoRenovavelFrame.setVisible(true);
         view_ParticipacaoRenovavelFrame.pack();
         view_ParticipacaoRenovavelFrame.setLocationRelativeTo(null);
         view_ParticipacaoRenovavelFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
+        }catch(Exception e) {System.out.println(e);}
                           
     }//GEN-LAST:event_participacaoHomeActionPerformed
 
     private void reducaoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reducaoHomeActionPerformed
+        try {
         view_ReducaoEmissao view_ReducaoEmissaoFrame = new view_ReducaoEmissao();
         view_ReducaoEmissaoFrame.setVisible(true);
         view_ReducaoEmissaoFrame.pack();
         view_ReducaoEmissaoFrame.setLocationRelativeTo(null);
         view_ReducaoEmissaoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.dispose();
+        }catch(Exception e) {System.out.println(e);}
                           
     }//GEN-LAST:event_reducaoHomeActionPerformed
 
+    private void usuarioHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioHomeActionPerformed
+        try {
+        view_Usuario view_UsuarioFrame = new view_Usuario();
+        view_UsuarioFrame.setVisible(true);
+        view_UsuarioFrame.pack();
+        view_UsuarioFrame.setLocationRelativeTo(null);
+        view_UsuarioFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.dispose();
+        }catch(Exception e) {System.out.println(e);}
+    }//GEN-LAST:event_usuarioHomeActionPerformed
+     
+    public void usuario(String nome)
+    {
+        this.usuario.setText(nome);
+    }
     
     
     
@@ -290,16 +458,27 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnAbrir;
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton consumoHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JLabel ola;
+    private javax.swing.JPanel painelGrafico1;
+    private javax.swing.JPanel painelGrafico2;
+    private javax.swing.JPanel painelGrafico3;
     private javax.swing.JPanel parteSuperior;
     private javax.swing.JToggleButton participacaoHome;
     private javax.swing.JToggleButton reducaoHome;
+    private javax.swing.JLabel usuario;
+    private javax.swing.JToggleButton usuarioHome;
     // End of variables declaration//GEN-END:variables
 }
