@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import model.ConsumoSetor;
 
 /**
  *
@@ -28,9 +29,9 @@ public class ConexaoVerificacao {
         this.set$Url("jdbc:mysql://localhost:"+this.get$Host()+"/"+this.get$DB()+"");
     }
     
-    public void Consulta(String email,String nome,String senha) throws SQLException, ClassNotFoundException 
+    public void InsercaoValoresForm(String email,String nome,String senha) throws SQLException, ClassNotFoundException 
     {
-        
+        //consulta e inserção de valores
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(this.get$Url(),this.get$User(),this.get$Pwd());
         Statement st = con.createStatement();
@@ -39,6 +40,66 @@ public class ConexaoVerificacao {
         st.execute(query);
         
     }
+    public void InsercaoValoresUsuario(String email,float valor) throws ClassNotFoundException, SQLException
+    {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(this.get$Url(),this.get$User(),this.get$Pwd());
+        Statement st = con.createStatement();
+        String query = "INSERT INTO consumo(email,valor)"
+                + "VALUES('"+email+"','"+valor+"')";
+        st.execute(query);
+        
+    }
+    
+    public void ConsultaValoresUsuarios() throws SQLException, ClassNotFoundException
+    {
+        
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(this.get$Url(),this.get$User(),this.get$Pwd());
+        Statement st = null;
+        st = con.createStatement();
+        String query = " SELECT valor from consumo where email = 'a' ";
+       
+        ResultSet rs = st.executeQuery(query);
+        ConsumoSetor cons = new ConsumoSetor();
+        
+        float valor = cons.getValor_registro();
+        System.out.println(valor);
+                    
+        
+            
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Getters    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //Getters
     public String get$Url() {return $Url;}
