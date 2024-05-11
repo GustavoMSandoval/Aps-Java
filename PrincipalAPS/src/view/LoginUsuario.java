@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -15,6 +15,7 @@ public class LoginUsuario extends javax.swing.JFrame {
      */
     public LoginUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -35,7 +36,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         nomeForm = new javax.swing.JTextField();
         emailForm = new javax.swing.JTextField();
-        enviarForm = new javax.swing.JToggleButton();
+        enviarLogin = new javax.swing.JToggleButton();
         cadastroLogin = new javax.swing.JToggleButton();
         senhaForm = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
@@ -75,12 +76,12 @@ public class LoginUsuario extends javax.swing.JFrame {
 
         emailForm.setBackground(new java.awt.Color(255, 255, 255));
 
-        enviarForm.setBackground(new java.awt.Color(0, 102, 102));
-        enviarForm.setForeground(new java.awt.Color(255, 255, 255));
-        enviarForm.setText("Enviar");
-        enviarForm.addActionListener(new java.awt.event.ActionListener() {
+        enviarLogin.setBackground(new java.awt.Color(0, 102, 102));
+        enviarLogin.setForeground(new java.awt.Color(255, 255, 255));
+        enviarLogin.setText("Enviar");
+        enviarLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarFormActionPerformed(evt);
+                enviarLoginActionPerformed(evt);
             }
         });
 
@@ -116,7 +117,7 @@ public class LoginUsuario extends javax.swing.JFrame {
                             .addComponent(emailForm, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(enviarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(enviarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                         .addComponent(cadastroLogin)
                         .addGap(67, 67, 67))))
@@ -144,7 +145,7 @@ public class LoginUsuario extends javax.swing.JFrame {
                 .addComponent(senhaForm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enviarForm, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enviarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cadastroLogin))
                 .addGap(76, 76, 76))
         );
@@ -187,15 +188,16 @@ public class LoginUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void enviarFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarFormActionPerformed
+    private void enviarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarLoginActionPerformed
         // TODO add your handling code here:
         Home HomeFrame = new Home(); // pode ir para Home após logar
+        HomeFrame.usuario(nomeForm.getText());
         HomeFrame.setVisible(true);
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
         HomeFrame.setExtendedState(MAXIMIZED_BOTH);
         this.dispose();
-    }//GEN-LAST:event_enviarFormActionPerformed
+    }//GEN-LAST:event_enviarLoginActionPerformed
 
     private void cadastroLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroLoginActionPerformed
         // TODO add your handling code here:
@@ -244,7 +246,7 @@ public class LoginUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton cadastroLogin;
     private javax.swing.JTextField emailForm;
-    private javax.swing.JToggleButton enviarForm;
+    private javax.swing.JToggleButton enviarLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
