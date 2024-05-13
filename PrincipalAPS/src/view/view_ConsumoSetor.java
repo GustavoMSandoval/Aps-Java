@@ -17,6 +17,8 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.*;
 import model.ExcelTratamento.LeitorExcel;
         
@@ -56,6 +58,8 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
         importarArquivo = new javax.swing.JToggleButton();
+        PainelConsumo = new javax.swing.JPanel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -80,7 +84,8 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(35, 40, 45));
 
         btnFechar.setBackground(new java.awt.Color(35, 40, 45));
-        btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete_32px.png"))); // NOI18N
+        btnFechar.setForeground(new java.awt.Color(204, 204, 204));
+        btnFechar.setText("Fechar");
         btnFechar.setBorder(null);
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +94,8 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         });
 
         btnVoltar.setBackground(new java.awt.Color(35, 40, 45));
-        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/back_32px.png"))); // NOI18N
+        btnVoltar.setForeground(new java.awt.Color(204, 204, 204));
+        btnVoltar.setText("Voltar");
         btnVoltar.setBorder(null);
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +108,7 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(1831, Short.MAX_VALUE)
                 .addComponent(btnVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnFechar)
@@ -112,11 +118,9 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnFechar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -130,21 +134,33 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
             }
         });
 
+        PainelConsumo.setLayout(new java.awt.BorderLayout());
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(528, 528, 528)
+                .addContainerGap(263, Short.MAX_VALUE)
+                .addComponent(PainelConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 1470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(714, 714, 714)
                 .addComponent(importarArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1261, Short.MAX_VALUE))
+                .addGap(254, 254, 254)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(350, 350, 350)
-                .addComponent(importarArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(580, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addComponent(PainelConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(importarArquivo, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(154, 154, 154))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -158,8 +174,8 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,7 +202,11 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             LeitorExcel leitor = new LeitorExcel();
-            leitor.lerExcel(file);
+            try {
+                leitor.lerExcel(file);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(view_ConsumoSetor.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
     }//GEN-LAST:event_importarArquivoActionPerformed
@@ -244,9 +264,11 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PainelConsumo;
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton btnVoltar;
     private javax.swing.JToggleButton importarArquivo;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
