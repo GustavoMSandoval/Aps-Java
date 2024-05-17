@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import model.ConsumoSetor;
-import model.Graficos.Graficos;
+//import model.Graficos.Graficos;
 import model.Verificar_Conectar.ConexaoVerificacao;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -24,9 +24,9 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.DefaultCategoryItemRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.chart.renderer.category.*;
+import org.jfree.data.category.*;
+import org.jfree.data.general.*;
 import view.*;
 
 /**
@@ -43,6 +43,7 @@ public class Home extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
         MostraGraficoPizza();
         MostraGraficoBarra();
+        MostraGraficoProgresso();
         
     }
         private  void MostraGraficoPizza() {
@@ -72,6 +73,7 @@ public class Home extends javax.swing.JFrame {
         painelGrafico2.removeAll();
         painelGrafico2.add(barChartPanel,BorderLayout.CENTER);
         painelGrafico2.validate();
+ 
       
     
 }
@@ -104,6 +106,34 @@ public class Home extends javax.swing.JFrame {
             painelGrafico1.validate();
       
         }
+        private void MostraGraficoProgresso()
+        {
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            dataset.setValue(200, "Amount", "january");
+            dataset.setValue(150, "Amount", "february");
+            dataset.setValue(18, "Amount", "march");
+            dataset.setValue(100, "Amount", "april");
+            dataset.setValue(80, "Amount", "may");
+            dataset.setValue(250, "Amount", "june");
+
+            JFreeChart chart = ChartFactory.createBarChart("contribution","monthly","amount", 
+                    dataset, PlotOrientation.VERTICAL, false,true,false);
+
+            CategoryPlot categoryPlot = chart.getCategoryPlot();
+            //categoryPlot.setRangeGridlinePaint(Color.BLUE);
+            categoryPlot.setBackgroundPaint(Color.WHITE);
+            BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
+            Color clr3 = new Color(204,0,51);
+            renderer.setSeriesPaint(0, clr3);
+
+            ChartPanel barpChartPanel = new ChartPanel(chart);
+      
+            painelGrafico4.removeAll();
+            painelGrafico4.add(barpChartPanel, BorderLayout.CENTER);
+            painelGrafico4.validate();
+      
+        }
+        
         
     
     /**
@@ -129,11 +159,9 @@ public class Home extends javax.swing.JFrame {
         reducaoHome = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         painelGrafico1 = new javax.swing.JPanel();
+        painelGrafico4 = new javax.swing.JPanel();
         painelGrafico2 = new javax.swing.JPanel();
         painelGrafico3 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
 
         jToggleButton1.setText("oiiii");
 
@@ -266,7 +294,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(participacaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
                 .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(532, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -274,63 +302,19 @@ public class Home extends javax.swing.JFrame {
 
         painelGrafico1.setPreferredSize(new java.awt.Dimension(400, 400));
         painelGrafico1.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 430, 380));
+        jPanel2.add(painelGrafico1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 370, 440));
+
+        painelGrafico4.setPreferredSize(new java.awt.Dimension(400, 400));
+        painelGrafico4.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(painelGrafico4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, 950, 380));
 
         painelGrafico2.setPreferredSize(new java.awt.Dimension(400, 400));
         painelGrafico2.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 450, 480, 390));
+        jPanel2.add(painelGrafico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 430, 390));
 
         painelGrafico3.setPreferredSize(new java.awt.Dimension(400, 400));
         painelGrafico3.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 450, 510, 390));
-
-        jPanel11.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel11.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 0, 0)));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 310, -1));
-
-        jPanel13.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel13.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 0, 0)));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, -1, -1));
-
-        jPanel14.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel14.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(255, 0, 0)));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 80, -1, -1));
+        jPanel2.add(painelGrafico3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 50, 530, 810));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -462,19 +446,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JToggleButton consumoHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel ola;
     private javax.swing.JPanel painelGrafico1;
     private javax.swing.JPanel painelGrafico2;
     private javax.swing.JPanel painelGrafico3;
+    private javax.swing.JPanel painelGrafico4;
     private javax.swing.JPanel parteSuperior;
     private javax.swing.JToggleButton participacaoHome;
     private javax.swing.JToggleButton reducaoHome;
