@@ -209,12 +209,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jDateChooser2" alignment="0" min="-2" pref="362" max="-2" attributes="0"/>
+                              <Component id="campoDataInicial" alignment="0" min="-2" pref="362" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jDateChooser1" alignment="0" min="-2" pref="378" max="-2" attributes="0"/>
+                              <Component id="campoDataFinal" alignment="0" min="-2" pref="378" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
@@ -254,13 +254,13 @@
                                               <Component id="jLabel3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jDateChooser2" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <Component id="campoDataInicial" min="-2" pref="32" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser1" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="campoDataFinal" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="15" max="32767" attributes="0"/>
@@ -269,14 +269,14 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                <Component class="com.toedter.calendar.JDateChooser" name="campoDataFinal">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="0"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+                <Component class="com.toedter.calendar.JDateChooser" name="campoDataInicial">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="0"/>

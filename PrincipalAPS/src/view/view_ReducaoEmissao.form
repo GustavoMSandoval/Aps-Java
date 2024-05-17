@@ -165,9 +165,9 @@
                               <Component id="jLabel6" min="-2" pref="360" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jDateChooser2" min="-2" pref="360" max="-2" attributes="0"/>
+                              <Component id="campaDataInicial" min="-2" pref="360" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                              <Component id="jDateChooser1" min="-2" pref="360" max="-2" attributes="0"/>
+                              <Component id="campoDataFinal" min="-2" pref="360" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
@@ -208,8 +208,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jDateChooser2" alignment="1" pref="32" max="32767" attributes="0"/>
-                              <Component id="jDateChooser1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="campaDataInicial" alignment="1" pref="32" max="32767" attributes="0"/>
+                              <Component id="campoDataFinal" alignment="1" max="32767" attributes="0"/>
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="jButton4" alignment="3" max="32767" attributes="0"/>
                                   <Component id="importarArquivo" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
@@ -270,7 +270,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+            <Component class="com.toedter.calendar.JDateChooser" name="campaDataInicial">
               <Properties>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[82, 31]"/>
@@ -285,7 +285,7 @@
                 <Property name="text" type="java.lang.String" value="Data Final"/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+            <Component class="com.toedter.calendar.JDateChooser" name="campoDataFinal">
               <Properties>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[82, 31]"/>

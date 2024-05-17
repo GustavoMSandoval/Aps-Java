@@ -239,10 +239,10 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
     }
     private void abrirConexao() {
             try {
-            String hostname = "177.53.140.227";
-            String username = "wtooltestebrscom";
-            String password = "de8#$Ul%bpJ2";
-            String database = "wtooltestebrscom_estacionamento";
+            String hostname = "";
+            String username = "";
+            String password = "";
+            String database = "";
             String url = "jdbc:mysql://" + hostname + "/" + database;
             connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
@@ -279,8 +279,8 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        campoDataFinal = new com.toedter.calendar.JDateChooser();
+        campoDataInicial = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         importarArquivo = new javax.swing.JToggleButton();
         jPanel6 = new javax.swing.JPanel();
@@ -362,9 +362,9 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jDateChooser1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        campoDataFinal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jDateChooser2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        campoDataInicial.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jButton1.setBackground(new java.awt.Color(0, 204, 102));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -428,11 +428,11 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(93, 93, 93)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -465,10 +465,10 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(campoDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campoDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -607,7 +607,7 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
          //criando variavel//
          
          //chamando grafico dnv com os parametros do filtro//
-         valorRespostaGrafico1 = MostraGraficoProgresso(jDateChooser2.getDate(),jDateChooser1.getDate());
+         valorRespostaGrafico1 = MostraGraficoProgresso(campoDataInicial.getDate(),campoDataFinal.getDate());
          //chamando grafico dnv com os parametros do filtro//
          
          //pegando valor Meta//
@@ -616,7 +616,7 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
          //pegando valor Meta//
          
          //chamando grafico meta dnv com os parametros do filtro//
-         MostraGraficoProgressoMeta(jDateChooser1.getDate(),numeroMeta,valorRespostaGrafico1);
+         MostraGraficoProgressoMeta(campoDataFinal.getDate(),numeroMeta,valorRespostaGrafico1);
          //chamando grafico meta dnv com os parametros do filtro//
          
          fecharConexao();
@@ -670,11 +670,11 @@ public class view_ConsumoSetor extends javax.swing.JFrame {
     private javax.swing.JPanel PainelConsumo3;
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton btnVoltar;
+    private com.toedter.calendar.JDateChooser campoDataFinal;
+    private com.toedter.calendar.JDateChooser campoDataInicial;
     private javax.swing.JTextField campoMeta;
     private javax.swing.JToggleButton importarArquivo;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

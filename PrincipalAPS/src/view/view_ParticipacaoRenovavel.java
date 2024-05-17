@@ -323,10 +323,10 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
     
     private void abrirConexao() {
             try {
-            String hostname = "177.53.140.227";
-            String username = "wtooltestebrscom";
-            String password = "de8#$Ul%bpJ2";
-            String database = "wtooltestebrscom_estacionamento";
+            String hostname = "";
+            String username = "";
+            String password = "";
+            String database = "";
             String url = "jdbc:mysql://" + hostname + "/" + database;
             connection = DriverManager.getConnection(url, username, password);
             } catch (SQLException e) {
