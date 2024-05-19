@@ -191,7 +191,6 @@ public class LoginUsuario extends javax.swing.JFrame {
     private void enviarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarLoginActionPerformed
         // TODO add your handling code here:
         Home HomeFrame = new Home(); // pode ir para Home após logar
-        HomeFrame.usuario(nomeForm.getText());
         HomeFrame.setVisible(true);
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
