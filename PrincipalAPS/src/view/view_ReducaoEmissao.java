@@ -30,6 +30,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
 import model.ExcelTratamento.LeitorExcel;
+import model.GraficoTratamento.GraficoTratarChamar;
+import model.Verificar_Conectar.ConexaoVerificacao;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -48,279 +50,28 @@ import org.jfree.chart.renderer.category.BarRenderer;
  * @author Gustavo
  */
 public class view_ReducaoEmissao extends javax.swing.JFrame {
-     private Connection connection;
+    public Connection connection;
+    public String emails,nome;  
     /**
      * Creates new form view_ReducaoEmissao
      */
     public view_ReducaoEmissao() {
         initComponents();
-        abrirConexao();
-        MostraGraficoReducao(null, new Date());
-        MostraGraficoReducaoMeta(null, new Date(),0,0);
-        fecharConexao();
+        ConexaoVerificacao con = new ConexaoVerificacao();
+        GraficoTratarChamar graf = new GraficoTratarChamar();
+       
+        con.abrirConexao();
+        
+        graf.MostraGraficoReducao(null, new Date(),con.getConnection(),PainelReducao,graf.SelecionarID(emails));
+        graf.MostraGraficoReducaoMeta(null, new Date(),0,0,con.getConnection(),PainelReducao1,graf.SelecionarID(emails));
+        
+        con.fecharConexao();
     }
-     private void MostraGraficoReducao(Date datainicio,Date datafim){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
-         // os array, para o valor bruto e renovavel//
-         Map<Integer, Float> somaBrutoPorAno = new LinkedHashMap<>();
-         Map<Integer, Float> somaRenovavelPorAno = new LinkedHashMap<>();
-         // os array, para o valor bruto e renovavel//
-        
-         //conexao//
-         try {       
-                if (connection != null) {
-                    System.out.println("Conexão bem-sucedida!");
-
-                    Statement statement = connection.createStatement();
-                    
-                    String query = "SELECT * FROM ideia_2 WHERE data >= ? AND data <= ? ORDER BY data asc";
-
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    
-                    // vereficando se as datas sao nulas//
-                    if(datainicio == null){
-                       datainicio = new Date(2000 - 1900, 0, 1);
-                    }
-                    
-                    if(datafim == null){
-                        datafim = new Date();
-                    }
-                    // vereficando se as datas sao nulas//
-                    
-                     // colocando os valores no lugar do '?' da variavel query//
-                    preparedStatement.setDate(1, new java.sql.Date(datainicio.getTime())); 
-                    preparedStatement.setDate(2, new java.sql.Date(datafim.getTime()));
-                    // colocando os valores no lugar do '?' da variavel query//
-                    
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    //looping do resultado da query//
-                    while (resultSet.next()) {       
-                        int userId = resultSet.getInt("id");
-                        String descricaoResultado = resultSet.getString("descricao");
-                        float valor_bruto = resultSet.getFloat("valor_bruto");
-                        float valor_renovavel = resultSet.getFloat("valor_renovavel");
-                        Date data = resultSet.getDate("data");  
-                        
-                        //pegando o data para apenas o ano//
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(data);
-                        int ano = calendar.get(Calendar.YEAR);
-                        int chave = ano;                   
-                        //pegando o data para apenas o ano//
-                        
-                        //colocando os valores brutos e renovaveis em vetores//
-                        if (!somaBrutoPorAno.containsKey(chave)) {
-                            somaBrutoPorAno.put(chave, 0.0f);
-                        }  
-                        if (!somaRenovavelPorAno.containsKey(chave)) {
-                            somaRenovavelPorAno.put(chave, 0.0f);
-                        } 
-                        float somaAtualBruto = somaBrutoPorAno.get(chave);
-                        somaBrutoPorAno.put(chave, somaAtualBruto + valor_bruto); 
-                        
-                        float somaAtualRenovavel = somaRenovavelPorAno.get(chave);
-                        somaRenovavelPorAno.put(chave, somaAtualRenovavel + valor_renovavel);   
-                        //colocando os valores brutos e renovaveis em vetores//
-                        
-                    }
-                    //looping do resultado da query//
-                    
-                    //colocando os valores brutos e renovaveis nas linhas do grafico//
-                     for (Map.Entry<Integer, Float> entry : somaBrutoPorAno.entrySet()) {
-                       
-                        dataset.addValue(entry.getValue(), "Gasto Bruto", entry.getKey());
-                    }
-                      for (Map.Entry<Integer, Float> entry : somaRenovavelPorAno.entrySet()) {
-                       dataset.addValue(entry.getValue(), "Gasto Renovavel", entry.getKey());
-                    }
-                    //colocando os valores brutos e renovaveis nas linhas do grafico//
-
-                    // Fechando recursos
-                    resultSet.close();
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar ao banco de dados.");
-                e.printStackTrace();
-            }
-           //conexao//
-
-            // Criando o gráfico de linha
-            JFreeChart lineChart = ChartFactory.createLineChart(
-                    "Comparativo dos Gastos",
-                    "Mês",
-                    "Valor",
-                    dataset
-            );
-
-            // Obtendo o plot do gráfico
-            CategoryPlot lineCategoryPlot = lineChart.getCategoryPlot();
-
-            // Configurando o fundo do plot
-            //lineCategoryPlot.setBackgroundPaint(Color.white);
-
-            // Criando um objeto render para mostrar o gráfico
-            LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
-
-            // Configurando as cores para cada série
-            lineRenderer.setSeriesPaint(0, Color.RED); // Cor para a série "Gastos"
-            lineRenderer.setSeriesPaint(1, Color.GREEN); // Cor para a série "Lucro"
-
-            // Criando um painel para o gráfico
-            ChartPanel lineChartPanel = new ChartPanel(lineChart);
-            PainelReducao.removeAll();
-            PainelReducao.add(lineChartPanel,BorderLayout.CENTER);
-            PainelReducao.validate();
-     }
      
-      private void MostraGraficoReducaoMeta(Date datainicio,Date datafim,int meta,int meta2){
-          
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            //aplicando os vetores//
-            Map<Integer, Float> somaBrutoPorAno = new LinkedHashMap<>();
-            Map<Integer, Float> somaMetaPorAno = new LinkedHashMap<>();
-             //aplicando os vetores//
-             
-         //conexao//
-         try {   
-                
-                if (connection != null) {
-                    System.out.println("Conexão bem-sucedida!");
-
-                    Statement statement = connection.createStatement();
-                    
-                    String query = "SELECT * FROM ideia_2 WHERE data >= ? AND data <= ? ORDER BY data asc";
-
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    
-                    //vereficando se as datas são nulas//
-                    if(datainicio == null){
-                       datainicio = new Date(2000 - 1900, 0, 1);
-                    }
-                    
-                    if(datafim == null){
-                        datafim = new Date();
-                    }
-                    //vereficando se as datas são nulas//
-                    
-                    //aplicando busca//
-                    preparedStatement.setDate(1, new java.sql.Date(datainicio.getTime())); 
-                    preparedStatement.setDate(2, new java.sql.Date(datafim.getTime()));
-                     //aplicando busca//
-                     
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    
-                    //looping do resultado da query//
-                    while (resultSet.next()) {       
-                        int userId = resultSet.getInt("id");
-                        String descricaoResultado = resultSet.getString("descricao");
-                        float valor_bruto = resultSet.getFloat("valor_bruto");
-                        float valor_renovavel = resultSet.getFloat("valor_renovavel");
-                        Date data = resultSet.getDate("data");  
-                        
-                        //data pegando para formar apenas o ano//
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(data);
-                        int ano = calendar.get(Calendar.YEAR);
-                        //int mes = calendar.get(Calendar.MONTH) + 1; 
-                        int chave = ano;
-                         //data pegando para formar apenas o ano//
-
-                        //setando as info nos vetores//
-                        if (!somaMetaPorAno.containsKey(chave)) {
-                            somaMetaPorAno.put(chave, 0.0f);
-                        }  
-                        if (!somaBrutoPorAno.containsKey(chave)) {
-                            somaBrutoPorAno.put(chave, 0.0f);
-                        } 
-                        
-                        
-                        
-                        
-                         // Calculando o desconto
-                        float metaDecimal_1 = meta2 / 100.0f;
-                        
-                        float metaDecima_2 = meta / 100.0f;  
-                        
-                        float desconto_1 = valor_renovavel * metaDecimal_1; 
-                        float somaAtualMeta = somaMetaPorAno.get(chave);
-                        somaMetaPorAno.put(chave, somaAtualMeta + valor_renovavel+desconto_1); 
-                        
-                        float desconto_2 = valor_bruto * metaDecima_2;
-                        float somaAtualBruto = somaBrutoPorAno.get(chave);
-                        somaBrutoPorAno.put(chave, somaAtualBruto + valor_bruto-desconto_2);   
-                      // Calculando o desconto
-                    }
-                    //looping do resultado da query//
-                   
-                    //loopings para inserir os valores do array nos graficos//
-                    for (Map.Entry<Integer, Float> entry : somaMetaPorAno.entrySet()) { 
-                         dataset.addValue(entry.getValue(), "Aumento Renovavel", entry.getKey());
-                    }
-                    for (Map.Entry<Integer, Float> entry : somaBrutoPorAno.entrySet()) {
-                      dataset.addValue(entry.getValue(), "Gasto Não Renovavel", entry.getKey());
-                        
-                    }
-                    //loopings para inserir os valores do array nos graficos//
-                    // Fechando recursos
-                    resultSet.close();
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar ao banco de dados.");
-                e.printStackTrace();
-            }
-           //conexao//
-           
-
-            // Criação do gráfico de pirâmide populacional
-            JFreeChart chart = ChartFactory.createStackedBarChart(
-                    "Relação anual de Gastos / Meta", // Título do gráfico
-                    "Ano", // Rótulo do eixo X
-                    "Valor Total", // Rótulo do eixo Y
-                    dataset,
-                    PlotOrientation.VERTICAL, // Orientação do gráfico
-                    true, // Incluir legenda
-                    true, // Incluir tooltips
-                    false // Incluir URLs
-            );
-
-          
-            CategoryPlot plot = (CategoryPlot) chart.getPlot();
-            BarRenderer renderer = (BarRenderer) plot.getRenderer();
-            renderer.setSeriesPaint(0, Color.GREEN); // Série renovavel
-            renderer.setSeriesPaint(1, Color.RED); // Série nao renovavel
-
-            ChartPanel chartPanel = new ChartPanel(chart);
-            PainelReducao1.removeAll();
-            PainelReducao1.add(chartPanel,BorderLayout.CENTER);
-            PainelReducao1.validate();
-      }
-    private void abrirConexao() {
-            try {
-            String hostname = "";
-            String username = "";
-            String password = "";
-            String database = "";
-            String url = "jdbc:mysql://" + hostname + "/" + database;
-            connection = DriverManager.getConnection(url, username, password);
-            } catch (SQLException e) {
-                // Trate qualquer exceção de conexão aqui
-                e.printStackTrace();
-            }
-    }
+     
+      
     
-    private void fecharConexao() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            // Trate qualquer exceção de fechamento de conexão aqui
-            e.printStackTrace();
-        }
-    }
+ 
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -349,6 +100,8 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
         metaField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        email = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         PainelReducao = new javax.swing.JPanel();
         PainelReducao1 = new javax.swing.JPanel();
@@ -529,15 +282,33 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(35, 40, 45));
 
+        email.setText("jLabel5");
+
+        usuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        usuario.setForeground(new java.awt.Color(60, 63, 65));
+        usuario.setText("nome");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(email))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 979, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 925, Short.MAX_VALUE)
+                .addComponent(usuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(email))
         );
 
         PainelReducao.setBackground(new java.awt.Color(0, 0, 0));
@@ -594,7 +365,7 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -635,6 +406,8 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
         // Voltar para Home
         Home HomeFrame = new Home(); // Após cadastro será redirecionado para Home
         HomeFrame.setVisible(true);
+        HomeFrame.usuario(getNome());
+        HomeFrame.email(getEmail());
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
         HomeFrame.setExtendedState(MAXIMIZED_BOTH);
@@ -647,10 +420,12 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void botaoSearchFiltro(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSearchFiltro
-         abrirConexao();
+        ConexaoVerificacao con = new ConexaoVerificacao();
+        GraficoTratarChamar graf = new GraficoTratarChamar();
+        con.abrirConexao();
         
          //chamando graficos com os filtros//
-         MostraGraficoReducao(campaDataInicial.getDate(),campoDataFinal.getDate()); 
+         graf.MostraGraficoReducao(campaDataInicial.getDate(),campoDataFinal.getDate(),con.getConnection(),PainelReducao,graf.SelecionarID(emails)); 
          //chamando graficos com os filtros//
          
          //vereficando se as metas passadas são nulas//
@@ -667,10 +442,10 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
         //vereficando se as metas passadas são nulas//
         
         //chamando graficos com os filtros//
-         MostraGraficoReducaoMeta(campaDataInicial.getDate(),campoDataFinal.getDate(),numeroMeta,numeroMeta2);
+         graf.MostraGraficoReducaoMeta(campaDataInicial.getDate(),campoDataFinal.getDate(),numeroMeta,numeroMeta2,con.getConnection(),PainelReducao1,graf.SelecionarID(emails));
         //chamando graficos com os filtros//
         
-         fecharConexao();
+        con.fecharConexao();
     }//GEN-LAST:event_botaoSearchFiltro
 
     private void metaField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metaField2ActionPerformed
@@ -681,6 +456,26 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_metaField1ActionPerformed
 
+        
+     public void setEmail(String email)
+    {
+        this.email.setText(email);
+
+    }
+     
+    public String getEmail() 
+    {
+        return this.email.getText();
+    }
+      public void setNome(String nome) {
+        this.usuario.setText(nome);
+    }
+    
+    public String getNome() {
+        return this.usuario.getText();
+    }
+
+    
     /**
      * @param args the command line arguments
      */
@@ -723,6 +518,7 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnVoltar;
     private com.toedter.calendar.JDateChooser campaDataInicial;
     private com.toedter.calendar.JDateChooser campoDataFinal;
+    private javax.swing.JLabel email;
     private javax.swing.JToggleButton importarArquivo;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -738,5 +534,6 @@ public class view_ReducaoEmissao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField metaField1;
     private javax.swing.JTextField metaField2;
+    private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }

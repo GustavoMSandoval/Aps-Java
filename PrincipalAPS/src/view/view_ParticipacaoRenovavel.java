@@ -26,6 +26,8 @@ import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.ExcelTratamento.LeitorExcel;
+import model.GraficoTratamento.GraficoTratarChamar;
+import model.Verificar_Conectar.ConexaoVerificacao;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -41,310 +43,25 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
     private Connection connection;
+    public String emails,nome;  
     /**
      * Creates new form view_ParticipacaoRenovavel
      */
     public view_ParticipacaoRenovavel() {
         initComponents();
-        abrirConexao();
+        
+        ConexaoVerificacao con = new ConexaoVerificacao();
+        GraficoTratarChamar graf = new GraficoTratarChamar();
+        
+        con.abrirConexao();
         //chamandos os graficos nulos pois n foi passado filtro//
-        MostraGraficoParticipacao(null, new Date(),null);
-        MostraGraficoParticipacaoGasto(null, new Date(),null);
-        MostraGraficoParticipacaoTabela(null, new Date(),null);
+        graf.MostraGraficoParticipacao(null, new Date(),null,con.getConnection(),PainelParticipacao,graf.SelecionarID(emails));
+        graf.MostraGraficoParticipacaoGasto(null, new Date(),null,con.getConnection(),PainelParticipacao1,graf.SelecionarID(emails));
+        graf.MostraGraficoParticipacaoTabela(null, new Date(),null,con.getConnection(),PainelParticipacao3,graf.SelecionarID(emails));
         //chamandos os graficos nulos pois n foi passado filtro//
-        fecharConexao();
+        con.fecharConexao();
     }
-    private void MostraGraficoParticipacao(Date datainicio,Date datafim,String descricao){
-        
-           //vetor para armazenar os valores//
-           Map<String, Integer> somaPorEquip = new LinkedHashMap<>();
-           //vetor para armazenar os valores//
-           
-           DefaultPieDataset barDataset  = new DefaultPieDataset();  
-            
-           float valor = 0;
-           
-           //conexao//
-           try {       
-                if (connection != null) {
-                    System.out.println("Conexão bem-sucedida!");
 
-                    Statement statement = connection.createStatement();
-                    
-                    String query = "SELECT * FROM ideias_1 WHERE data >= ? AND data <= ? AND descricao LIKE ? ORDER BY data asc";
-
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    // vereficando se as datas são nulas//
-                    if(datainicio == null){
-                       datainicio = new Date(2000 - 1900, 0, 1);
-                    }
-                    
-                    if(datafim == null){
-                        datafim = new Date();
-                    }
-   
-                    if(descricao == null){
-                        descricao = "%";
-                    }
-                    // vereficando se as datas são nulas//
-                    
-                    //setandos os valores para busca da query//
-                    preparedStatement.setDate(1, new java.sql.Date(datainicio.getTime())); 
-                    preparedStatement.setDate(2, new java.sql.Date(datafim.getTime()));
-                    if(descricao != null){
-                        preparedStatement.setString(3, "%"+descricao+"%");
-                    }else{
-                        preparedStatement.setString(3, descricao);
-                    }
-                    //setandos os valores para busca da query//
-                    
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    
-                    //looping para apresentar os dados da query//
-                    while (resultSet.next()) {       
-                        int userId = resultSet.getInt("id");
-                        String descricaoResultado = resultSet.getString("descricao");
-                        valor = resultSet.getFloat("valor");
-                        int quantidade = resultSet.getInt("quantidade");
-                        Date data = resultSet.getDate("data");
-                        
-                        //inserindo as somas no vetor//
-                        if (!somaPorEquip.containsKey(descricaoResultado)) {
-                            somaPorEquip.put(descricaoResultado, 0);
-                        }            
-                        int somaAtual = somaPorEquip.get(descricaoResultado);
-                        somaPorEquip.put(descricaoResultado, somaAtual + quantidade); 
-                        //inserindo as somas no vetor//
-                    }
-                    //looping para apresentar os dados da query//
-                    
-                    //looping para apresentar os valores do vetor//
-                    for (Map.Entry<String, Integer> entry : somaPorEquip.entrySet()) {
-                        barDataset.setValue(entry.getKey(),entry.getValue());
-                    }
-                    //looping para apresentar os valores do vetor//
-                    
-                    // Fechando recursos
-                    resultSet.close();
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar ao banco de dados.");
-                e.printStackTrace();
-            }
-          //conexao//
-          
-        JFreeChart piechart = ChartFactory.createPieChart
-        ("Quantidade Participação Solar", barDataset,false,true,false);
-        
-        PiePlot  piePlot =( PiePlot) piechart.getPlot();
-
-        //piePlot.setBackgroundPaint(Color.white);
-        PieSectionLabelGenerator generator = new StandardPieSectionLabelGenerator("{0}: {1}", new DecimalFormat("0.0"), new DecimalFormat("0"));
-        piePlot.setLabelGenerator(generator);
-        ChartPanel barChartPanel = new ChartPanel(piechart);
-        
-        PainelParticipacao.removeAll();
-        PainelParticipacao.add(barChartPanel,BorderLayout.CENTER);
-        PainelParticipacao.validate();
-    }
-    private void MostraGraficoParticipacaoGasto(Date datainicio,Date datafim,String descricao){
-        
-           //vetor para armazenar os valores//
-           Map<String, Float> somaPorValorEquip = new LinkedHashMap<>();
-           DefaultPieDataset barDataset  = new DefaultPieDataset();  
-           //vetor para armazenar os valores//
-           
-           float valor = 0;
-           
-           //conexao//
-           try {       
-                if (connection != null) {
-                    System.out.println("Conexão bem-sucedida!");
-
-                    Statement statement = connection.createStatement();
-                    
-                    String query = "SELECT * FROM ideias_1 WHERE data >= ? AND data <= ? AND descricao LIKE ? ORDER BY data asc";
-
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    
-                    //vereficando se as datas são nulas//
-                    if(datainicio == null){
-                       datainicio = new Date(2000 - 1900, 0, 1);
-                    }
-                    
-                    if(datafim == null){
-                        datafim = new Date();
-                    }
-   
-                    if(descricao == null){
-                        descricao = "%";
-                    }
-                    //vereficando se as datas são nulas//
-                    
-                    //setando valores para busca//
-                    preparedStatement.setDate(1, new java.sql.Date(datainicio.getTime())); 
-                    preparedStatement.setDate(2, new java.sql.Date(datafim.getTime()));
-                    if(descricao != null){
-                        preparedStatement.setString(3, "%"+descricao+"%");
-                    }else{
-                        preparedStatement.setString(3, descricao);
-                    }
-                    //setando valores para busca//
-                    
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    
-                    //looping do result da query//
-                    while (resultSet.next()) {       
-                        int userId = resultSet.getInt("id");
-                        String descricaoResultado = resultSet.getString("descricao");
-                        valor = resultSet.getFloat("valor");
-                        int quantidade = resultSet.getInt("quantidade");
-                        Date data = resultSet.getDate("data");
-                        
-                        //colocando os valores no vetor//
-                        if (!somaPorValorEquip.containsKey(descricaoResultado)) {
-                            somaPorValorEquip.put(descricaoResultado, 0.0f);
-                        }            
-                        float somaAtual = somaPorValorEquip.get(descricaoResultado);
-                        somaPorValorEquip.put(descricaoResultado, somaAtual + (valor*quantidade));  
-                        //colocando os valores no vetor//
-                    }
-                    //looping do result da query//
-                    
-                    //looping para setar dados no grafico diante o vetor//
-                    for (Map.Entry<String, Float> entry : somaPorValorEquip.entrySet()) {
-                        barDataset.setValue(entry.getKey(),entry.getValue());
-                    }
-                    //looping para setar dados no grafico diante o vetor//
-                    
-                    // Fechando recursos
-                    resultSet.close();
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar ao banco de dados.");
-                e.printStackTrace();
-            }
-           //conexao//
-        JFreeChart piechart = ChartFactory.createPieChart
-        ("Gasto Participação Solar", barDataset,false,true,false);
-        
-        PiePlot  piePlot =( PiePlot) piechart.getPlot();
-
-       
-        PieSectionLabelGenerator generator = new StandardPieSectionLabelGenerator("{0}: {1}", new DecimalFormat("0.0"), new DecimalFormat("0"));
-        piePlot.setLabelGenerator(generator);
-        ChartPanel barChartPanel = new ChartPanel(piechart);
-        
-        PainelParticipacao1.removeAll();
-        PainelParticipacao1.add(barChartPanel,BorderLayout.CENTER);
-        PainelParticipacao1.validate();
-    }
-      private void MostraGraficoParticipacaoTabela(Date datainicio,Date datafim,String descricao){
-        JFrame frame = new JFrame("Tabela Participacao");
-        // Criar um modelo de tabela
-        DefaultTableModel model = new DefaultTableModel();
-        getContentPane().setBackground(Color.WHITE);
-        // Adicionar colunas ao modelo
-        model.addColumn("Descricao Equipamento");
-        model.addColumn("Quantidade Equipamento");
-        model.addColumn("Valor Equipamento");
-        
-        //conexao//
-        try {       
-                if (connection != null) {
-                    System.out.println("Conexão bem-sucedida!");
-
-                    Statement statement = connection.createStatement();
-                    
-                    String query = "SELECT * FROM ideias_1 WHERE data >= ? AND data <= ? AND descricao LIKE ? ORDER BY data asc";
-
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    
-                    //vereficando se as datas são nulas//
-                    if(datainicio == null){
-                       datainicio = new Date(2000 - 1900, 0, 1);
-                    }
-                    
-                    if(datafim == null){
-                        datafim = new Date();
-                    }
-   
-                    if(descricao == null){
-                        descricao = "%";
-                    }
-                    //vereficando se as datas são nulas//
-                    
-                    //setando os valores para pesquisa da query//
-                    preparedStatement.setDate(1, new java.sql.Date(datainicio.getTime())); 
-                    preparedStatement.setDate(2, new java.sql.Date(datafim.getTime()));
-                    
-                    if(descricao != null){
-                        preparedStatement.setString(3, "%"+descricao+"%");
-                    }else{
-                        preparedStatement.setString(3, descricao);
-                    }
-                    //setando os valores para pesquisa da query//
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    
-                    //looping do resultado da query//
-                    while (resultSet.next()) {       
-                        int userId = resultSet.getInt("id");
-                        String descricaoResultado = resultSet.getString("descricao");
-                        float valor = resultSet.getFloat("valor");
-                        int quantidade = resultSet.getInt("quantidade");
-                        Date data = resultSet.getDate("data");  
-                        model.addRow(new Object[]{descricaoResultado,quantidade,valor});
-                    }
-                    //looping do resultado da query//
-                    // Fechando recursos
-                    resultSet.close();
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Erro ao conectar ao banco de dados.");
-                e.printStackTrace();
-            }
-           //conexao//
-
-        // Adicionar linhas ao modelo (apenas um exemplo)
-      
-
-        // Criar uma tabela com o modelo
-        JTable table = new JTable(model);
-        
-        JScrollPane scrollPane = new JScrollPane(table);
-        PainelParticipacao3.removeAll();
-        PainelParticipacao3.add(scrollPane,BorderLayout.CENTER);
-        PainelParticipacao3.validate();
-
-      }
-    
-    private void abrirConexao() {
-            try {
-            String hostname = "";
-            String username = "";
-            String password = "";
-            String database = "";
-            String url = "jdbc:mysql://" + hostname + "/" + database;
-            connection = DriverManager.getConnection(url, username, password);
-            } catch (SQLException e) {
-                // Trate qualquer exceção de conexão aqui
-                e.printStackTrace();
-            }
-    }
-    
-    private void fecharConexao() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            // Trate qualquer exceção de fechamento de conexão aqui
-            e.printStackTrace();
-        }
-    }
     
 
     /**
@@ -361,6 +78,8 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
         btnFechar = new javax.swing.JToggleButton();
         btnVoltar = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
+        email = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         importarArquivo1 = new javax.swing.JToggleButton();
         campoDataInicial = new com.toedter.calendar.JDateChooser();
@@ -428,15 +147,32 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(35, 40, 45));
 
+        email.setText("jLabel5");
+
+        usuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        usuario.setForeground(new java.awt.Color(60, 63, 65));
+        usuario.setText("nome");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(email))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 985, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 909, Short.MAX_VALUE)
+                .addComponent(usuario)
+                .addGap(28, 28, 28)
+                .addComponent(email))
         );
 
         importarArquivo1.setText("Importar Arquivo");
@@ -610,7 +346,7 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,6 +388,8 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
         // Voltar para Home
         Home HomeFrame = new Home(); // Após cadastro será redirecionado para Home
         HomeFrame.setVisible(true);
+        HomeFrame.usuario(getNome());
+        HomeFrame.email(getEmail());
         HomeFrame.pack();
         HomeFrame.setLocationRelativeTo(null);
         HomeFrame.setExtendedState(MAXIMIZED_BOTH);
@@ -664,19 +402,41 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
 
     private void BotaoSearchParticipacao(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSearchParticipacao
         
-        abrirConexao();
+        ConexaoVerificacao con = new ConexaoVerificacao();
+        GraficoTratarChamar graf = new GraficoTratarChamar();
+        
+        con.abrirConexao();
          
         //chamandos os graficos com o filtro//
-         MostraGraficoParticipacao(campoDataInicial.getDate(),campoDataFinal.getDate(),descricaoField.getText());
-         MostraGraficoParticipacaoGasto(campoDataInicial.getDate(),campoDataFinal.getDate(),descricaoField.getText());
-         //chamandos os graficos com o filtro//
+         graf.MostraGraficoParticipacao(campoDataInicial.getDate(),campoDataFinal.getDate(),descricaoField.getText(),con.getConnection(),PainelParticipacao,graf.SelecionarID(emails));
+         graf.MostraGraficoParticipacaoGasto(campoDataInicial.getDate(),campoDataFinal.getDate(),descricaoField.getText(),con.getConnection(),PainelParticipacao1,graf.SelecionarID(emails));
+         graf.MostraGraficoParticipacaoTabela(campoDataInicial.getDate(), campoDataFinal.getDate(), descricaoField.getText(),con.getConnection(), PainelParticipacao3, graf.SelecionarID(emails));
+        //chamandos os graficos com o filtro//
          
-         fecharConexao();
+        con.fecharConexao();
     }//GEN-LAST:event_BotaoSearchParticipacao
 
     private void descricaoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descricaoFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descricaoFieldActionPerformed
+        
+     public void setEmail(String email)
+    {
+        this.email.setText(email);
+
+    }
+     
+    public String getEmail() 
+    {
+        return this.email.getText();
+    }
+      public void setNome(String nome) {
+        this.usuario.setText(nome);
+    }
+    
+    public String getNome() {
+        return this.usuario.getText();
+    }
 
     /**
      * @param args the command line arguments
@@ -722,6 +482,7 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser campoDataFinal;
     private com.toedter.calendar.JDateChooser campoDataInicial;
     private javax.swing.JTextField descricaoField;
+    private javax.swing.JLabel email;
     private javax.swing.JToggleButton importarArquivo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -735,5 +496,6 @@ public class view_ParticipacaoRenovavel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }

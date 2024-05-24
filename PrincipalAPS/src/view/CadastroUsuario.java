@@ -6,7 +6,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.Verificar_Conectar.ConexaoVerificacao;
-import model.Verificar_Conectar.VerificacaoPessoa;
+import model.Verificar_Conectar.VerificacaoUsuario;
 
 /**
  *
@@ -47,6 +47,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
@@ -188,9 +189,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -200,16 +199,15 @@ public class CadastroUsuario extends javax.swing.JFrame {
         
         
         try {
-        VerificacaoPessoa verifica = new VerificacaoPessoa
+        VerificacaoUsuario verifica = new VerificacaoUsuario
         (nomeForm.getText(), emailForm.getText(), senhaForm.getText());
         if(verifica.getAprovado() == true) 
         {
         
         ConexaoVerificacao conectar = new ConexaoVerificacao();
-        conectar.set$Host("3307");
-        conectar.set$DB("mydb");
-        conectar.Conexao("root","");       
-        conectar.InsercaoValoresForm(emailForm.getText(),nomeForm.getText(),senhaForm.getText());
+       
+        conectar.abrirConexao();       
+        conectar.InsercaoValoresForm(nomeForm.getText(),emailForm.getText(),senhaForm.getText());
         
         Home HomeFrame = new Home(); // Após cadastro será redirecionado para Home
         HomeFrame.usuario(nomeForm.getText());
@@ -219,11 +217,13 @@ public class CadastroUsuario extends javax.swing.JFrame {
         this.dispose();
         
         JOptionPane.showMessageDialog(null,"Conta criada com sucesso");
-        
+        conectar.fecharConexao();
         }
         
         } catch(Exception e) 
-        {System.out.println(e);}
+        {JOptionPane.showMessageDialog(null,"Conta já existe ou erro em se cadastrar");}
+        
+        
        
     }//GEN-LAST:event_enviarCadastroActionPerformed
 

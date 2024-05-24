@@ -7,6 +7,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -14,8 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import model.ConsumoSetor;
-//import model.Graficos.Graficos;
+import model.GraficoTratamento.GraficoTratarChamar;
 import model.Verificar_Conectar.ConexaoVerificacao;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -34,107 +34,30 @@ import view.*;
  * @author Gustavo
  */
 public class Home extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        MostraGraficoPizza();
-        MostraGraficoBarra();
-        MostraGraficoProgresso();
-        
-    }
-        private  void MostraGraficoPizza() {
-         
-        ConsumoSetor consumoSetor = new ConsumoSetor();
-        
-        DefaultPieDataset barDataset  = new DefaultPieDataset();
-        barDataset.setValue("Consumo", new Float(8.0f));
-        barDataset.setValue("Economia", new Float(13.0f));
-        barDataset.setValue("Gastos", new Float(29.0f));
+        GraficoTratarChamar graf = new GraficoTratarChamar();
        
         
-        JFreeChart piechart = ChartFactory.createPieChart
-        ("Consumo", barDataset,false,true,false);
         
-        PiePlot  piePlot =( PiePlot) piechart.getPlot();
-        
-        piePlot.setSectionPaint("Consumo", new Color(0,102,102));
-        piePlot.setSectionPaint("Economia", new Color(255,0,0));
-        piePlot.setSectionPaint("Gastos", new Color(255,255,0));
-        
-        
-        piePlot.setBackgroundPaint(Color.white);
-        
-        ChartPanel barChartPanel = new ChartPanel(piechart);
-        
-        painelGrafico2.removeAll();
-        painelGrafico2.add(barChartPanel,BorderLayout.CENTER);
-        painelGrafico2.validate();
- 
-      
+        graf.MostraGraficoPizza(PainelConsumo1);
+        graf.MostraGraficoBarra(PainelConsumo2);
+        graf.MostraGraficoProgresso(PainelConsumo3);
     
-}
-        private void MostraGraficoBarra()
-        {
-            //cria data set
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            dataset.setValue(289,"Gerado","Consumo");
-            dataset.setValue(235,"Gerado","Economia");
-            dataset.setValue(456,"Gerado","Gastos");
-            
-            //cria chart
-            JFreeChart lineChart = ChartFactory.createLineChart
-        ("Produção ao mês","mês","resultado",dataset,PlotOrientation.VERTICAL,false,true,false);
-            
-            //cria plot object
-            CategoryPlot lineCategoryPlot = lineChart.getCategoryPlot();
-            
-            lineCategoryPlot.setBackgroundPaint(Color.white);
-            
-            
-            //cria objeto render para mostrar o chart
-            LineAndShapeRenderer lineRenderer = (LineAndShapeRenderer) lineCategoryPlot.getRenderer();
-            Color lineChartColor = new Color(204,0,51);
-            lineRenderer.setSeriesPaint(0, lineChartColor);
-            
-            ChartPanel lineChartPanel = new ChartPanel(lineChart);
-            painelGrafico1.removeAll();
-            painelGrafico1.add(lineChartPanel,BorderLayout.CENTER);
-            painelGrafico1.validate();
-      
-        }
-        private void MostraGraficoProgresso()
-        {
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            dataset.setValue(200, "Amount", "january");
-            dataset.setValue(150, "Amount", "february");
-            dataset.setValue(18, "Amount", "march");
-            dataset.setValue(100, "Amount", "april");
-            dataset.setValue(80, "Amount", "may");
-            dataset.setValue(250, "Amount", "june");
-
-            JFreeChart chart = ChartFactory.createBarChart("contribution","monthly","amount", 
-                    dataset, PlotOrientation.VERTICAL, false,true,false);
-
-            CategoryPlot categoryPlot = chart.getCategoryPlot();
-            //categoryPlot.setRangeGridlinePaint(Color.BLUE);
-            categoryPlot.setBackgroundPaint(Color.WHITE);
-            BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
-            Color clr3 = new Color(204,0,51);
-            renderer.setSeriesPaint(0, clr3);
-
-            ChartPanel barpChartPanel = new ChartPanel(chart);
-      
-            painelGrafico4.removeAll();
-            painelGrafico4.add(barpChartPanel, BorderLayout.CENTER);
-            painelGrafico4.validate();
-      
-        }
         
         
+    }
+    
+    
+   
+        
+        
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -153,15 +76,14 @@ public class Home extends javax.swing.JFrame {
         usuario = new javax.swing.JLabel();
         ola = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        usuarioHome = new javax.swing.JToggleButton();
         consumoHome = new javax.swing.JToggleButton();
         participacaoHome = new javax.swing.JToggleButton();
         reducaoHome = new javax.swing.JToggleButton();
+        email = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        painelGrafico1 = new javax.swing.JPanel();
-        painelGrafico4 = new javax.swing.JPanel();
-        painelGrafico2 = new javax.swing.JPanel();
-        painelGrafico3 = new javax.swing.JPanel();
+        PainelConsumo1 = new javax.swing.JPanel();
+        PainelConsumo3 = new javax.swing.JPanel();
+        PainelConsumo2 = new javax.swing.JPanel();
 
         jToggleButton1.setText("oiiii");
 
@@ -175,7 +97,8 @@ public class Home extends javax.swing.JFrame {
         parteSuperior.setPreferredSize(new java.awt.Dimension(800, 100));
 
         btnFechar.setBackground(new java.awt.Color(35, 40, 45));
-        btnFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/delete_32px.png"))); // NOI18N
+        btnFechar.setForeground(new java.awt.Color(204, 204, 204));
+        btnFechar.setText("Fechar");
         btnFechar.setBorder(null);
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,17 +149,6 @@ public class Home extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(35, 40, 45));
 
-        usuarioHome.setBackground(new java.awt.Color(35, 40, 45));
-        usuarioHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        usuarioHome.setForeground(new java.awt.Color(204, 204, 204));
-        usuarioHome.setText("Usuário");
-        usuarioHome.setBorder(null);
-        usuarioHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioHomeActionPerformed(evt);
-            }
-        });
-
         consumoHome.setBackground(new java.awt.Color(35, 40, 45));
         consumoHome.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         consumoHome.setForeground(new java.awt.Color(204, 204, 204));
@@ -270,6 +182,8 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        email.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -277,44 +191,42 @@ public class Home extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(usuarioHome)
                     .addComponent(reducaoHome)
                     .addComponent(participacaoHome)
                     .addComponent(consumoHome))
                 .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(usuarioHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
+                .addGap(187, 187, 187)
                 .addComponent(consumoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addComponent(participacaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
                 .addComponent(reducaoHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(532, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(email)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        painelGrafico1.setPreferredSize(new java.awt.Dimension(400, 400));
-        painelGrafico1.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 370, 440));
+        PainelConsumo1.setPreferredSize(new java.awt.Dimension(400, 400));
+        PainelConsumo1.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(PainelConsumo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 510, 440));
 
-        painelGrafico4.setPreferredSize(new java.awt.Dimension(400, 400));
-        painelGrafico4.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, 950, 380));
+        PainelConsumo3.setPreferredSize(new java.awt.Dimension(400, 400));
+        PainelConsumo3.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(PainelConsumo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 950, 380));
 
-        painelGrafico2.setPreferredSize(new java.awt.Dimension(400, 400));
-        painelGrafico2.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 430, 390));
-
-        painelGrafico3.setPreferredSize(new java.awt.Dimension(400, 400));
-        painelGrafico3.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(painelGrafico3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 50, 530, 810));
+        PainelConsumo2.setPreferredSize(new java.awt.Dimension(400, 400));
+        PainelConsumo2.setLayout(new java.awt.BorderLayout());
+        jPanel2.add(PainelConsumo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, 770, 430));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -333,7 +245,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -351,12 +263,16 @@ public class Home extends javax.swing.JFrame {
 
     private void consumoHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consumoHomeActionPerformed
         try {
+        
         view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
-        view_ConsumoSetorFrame.setVisible(true); 
-        view_ConsumoSetorFrame.pack();
-        view_ConsumoSetorFrame.setLocationRelativeTo(null);
-        view_ConsumoSetorFrame.setExtendedState(MAXIMIZED_BOTH);
+        view_ConsumoSetorFrame.setVisible(true);         
+        view_ConsumoSetorFrame.setEmail(email.getText());
+        view_ConsumoSetorFrame.emails = email.getText();
+        view_ConsumoSetorFrame.setNome(usuario.getText());
+        
+      
         this.dispose();
+            
         }catch(Exception e) {System.out.println(e);}
     }//GEN-LAST:event_consumoHomeActionPerformed
 
@@ -366,7 +282,9 @@ public class Home extends javax.swing.JFrame {
         view_ParticipacaoRenovavelFrame.setVisible(true);
         view_ParticipacaoRenovavelFrame.pack();
         view_ParticipacaoRenovavelFrame.setLocationRelativeTo(null);
-        view_ParticipacaoRenovavelFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view_ParticipacaoRenovavelFrame.setEmail(email.getText());
+        view_ParticipacaoRenovavelFrame.emails = email.getText();
+        view_ParticipacaoRenovavelFrame.setNome(usuario.getText());
         this.dispose();
         }catch(Exception e) {System.out.println(e);}
                           
@@ -378,28 +296,26 @@ public class Home extends javax.swing.JFrame {
         view_ReducaoEmissaoFrame.setVisible(true);
         view_ReducaoEmissaoFrame.pack();
         view_ReducaoEmissaoFrame.setLocationRelativeTo(null);
-        view_ReducaoEmissaoFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view_ReducaoEmissaoFrame.setEmail(email.getText());
+        view_ReducaoEmissaoFrame.emails = email.getText();
+        view_ReducaoEmissaoFrame.setNome(usuario.getText());
         this.dispose();
         }catch(Exception e) {System.out.println(e);}
                           
     }//GEN-LAST:event_reducaoHomeActionPerformed
-
-    private void usuarioHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioHomeActionPerformed
-        try {
-        view_Usuario view_UsuarioFrame = new view_Usuario();
-        view_UsuarioFrame.setVisible(true);
-        view_UsuarioFrame.pack();
-        view_UsuarioFrame.setLocationRelativeTo(null);
-        view_UsuarioFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.dispose();
-        }catch(Exception e) {System.out.println(e);}
-    }//GEN-LAST:event_usuarioHomeActionPerformed
      
     public void usuario(String nome)
     {
         this.usuario.setText(nome);
     }
     
+    public String email(String email)
+    {
+        this.email.setText(email);
+        
+        
+        return this.email.getText();
+    }
     
     
     
@@ -442,22 +358,21 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PainelConsumo1;
+    private javax.swing.JPanel PainelConsumo2;
+    private javax.swing.JPanel PainelConsumo3;
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton consumoHome;
+    private javax.swing.JLabel email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel ola;
-    private javax.swing.JPanel painelGrafico1;
-    private javax.swing.JPanel painelGrafico2;
-    private javax.swing.JPanel painelGrafico3;
-    private javax.swing.JPanel painelGrafico4;
     private javax.swing.JPanel parteSuperior;
     private javax.swing.JToggleButton participacaoHome;
     private javax.swing.JToggleButton reducaoHome;
     private javax.swing.JLabel usuario;
-    private javax.swing.JToggleButton usuarioHome;
     // End of variables declaration//GEN-END:variables
 }
