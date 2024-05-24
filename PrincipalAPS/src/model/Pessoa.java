@@ -14,6 +14,8 @@ public class Pessoa {
     private String senha;
     private boolean cargo;
 
+   
+    
     public String getNome() {
         return nome;
     }

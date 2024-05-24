@@ -58,8 +58,8 @@ public class LeitorExcel {
             
         } catch (IOException | InvalidFormatException e) {
             e.printStackTrace();
-            //JOptionPane.showMessageDialog(this, "Erro ao ler o arquivo Excel: " + e.getMessage(),
-                    //"Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo Excel: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
