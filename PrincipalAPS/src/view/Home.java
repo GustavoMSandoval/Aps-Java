@@ -267,8 +267,8 @@ public class Home extends javax.swing.JFrame {
         view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
         view_ConsumoSetorFrame.setVisible(true);         
         view_ConsumoSetorFrame.setEmail(email.getText());
-        view_ConsumoSetorFrame.emails = email.getText();
-        view_ConsumoSetorFrame.setNome(usuario.getText());
+        view_ConsumoSetorFrame.emails = email.getText();// enviando o email para que seja possível fazer a busca do usuário
+        view_ConsumoSetorFrame.setNome(usuario.getText());// nome para mostrar que ele está logado
         
       
         this.dispose();
@@ -281,7 +281,6 @@ public class Home extends javax.swing.JFrame {
         view_ParticipacaoRenovavel view_ParticipacaoRenovavelFrame = new view_ParticipacaoRenovavel();
         view_ParticipacaoRenovavelFrame.setVisible(true);
         view_ParticipacaoRenovavelFrame.pack();
-        view_ParticipacaoRenovavelFrame.setLocationRelativeTo(null);
         view_ParticipacaoRenovavelFrame.setEmail(email.getText());
         view_ParticipacaoRenovavelFrame.emails = email.getText();
         view_ParticipacaoRenovavelFrame.setNome(usuario.getText());
@@ -295,7 +294,6 @@ public class Home extends javax.swing.JFrame {
         view_ReducaoEmissao view_ReducaoEmissaoFrame = new view_ReducaoEmissao();
         view_ReducaoEmissaoFrame.setVisible(true);
         view_ReducaoEmissaoFrame.pack();
-        view_ReducaoEmissaoFrame.setLocationRelativeTo(null);
         view_ReducaoEmissaoFrame.setEmail(email.getText());
         view_ReducaoEmissaoFrame.emails = email.getText();
         view_ReducaoEmissaoFrame.setNome(usuario.getText());
