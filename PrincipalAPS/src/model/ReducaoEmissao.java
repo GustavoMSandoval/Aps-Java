@@ -12,21 +12,24 @@ import java.util.Date;
  */
 public class ReducaoEmissao extends RelatorioIndicador implements Indicador  {
     
-    final String tabela = "ReducaoEmissao";
+    final String tabela = "tabelareducao";
     
     RelatorioIndicador[] dadosIndicador = new RelatorioIndicador[10];
   
-   public void setIndicador(String descricao, Date data, float valor_registro){ 
+   
+   public void setIndicador(String descricao, float valor_registro,int quantidade, Date data){ 
        //parte de inserir dados que vier na tabela definida//
        
        //parte de inserir dados que vier na tabela definida//
        dadosIndicador[0] = new RelatorioIndicador();
-       dadosIndicador[0].setRelatorioIndicador(descricao,data,valor_registro);
+       dadosIndicador[0].setRelatorioIndicador(descricao,valor_registro,quantidade,data);
        
         dadosIndicador[0] = dadosIndicador[0].getRelatorioIndicador();
         System.out.println(dadosIndicador[0].getDescricao());
-        System.out.println(dadosIndicador[0].getData());
         System.out.println(dadosIndicador[0].getValor_registro());
+        System.out.println(dadosIndicador[0].getQuantidade());
+        System.out.println(dadosIndicador[0].getData());
+       
       
    }
         

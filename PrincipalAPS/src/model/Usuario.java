@@ -11,10 +11,10 @@ package model;
 public class Usuario extends Pessoa{
     private boolean permissao;
 
-    public boolean getPermissao() {
-        if(this.getCargo() != true){return false;}
-        return true;
-        
+    public Usuario(String nome, String email, String senha) {
+        setNome(nome);
+        setEmail(email); 
+        setSenha(senha);
     }
 
    
