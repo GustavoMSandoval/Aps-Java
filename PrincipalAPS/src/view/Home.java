@@ -274,9 +274,9 @@ public class Home extends javax.swing.JFrame {
         
         view_ConsumoSetor view_ConsumoSetorFrame = new view_ConsumoSetor();
         view_ConsumoSetorFrame.setVisible(true);         
-        view_ConsumoSetorFrame.setEmail(email.getText());
+        view_ConsumoSetorFrame.setEmail(email.getText());// envio do email do usuário para que seja possível fazer a consulta sql
         view_ConsumoSetorFrame.emails = email.getText();
-        view_ConsumoSetorFrame.setNome(usuario.getText());
+        view_ConsumoSetorFrame.setNome(usuario.getText());// nome enviado para o Home para quehaja continuidade enviada para as suas classes sujeitas
         
       
         this.dispose();
@@ -289,10 +289,10 @@ public class Home extends javax.swing.JFrame {
         view_ParticipacaoRenovavel view_ParticipacaoRenovavelFrame = new view_ParticipacaoRenovavel();
         view_ParticipacaoRenovavelFrame.setVisible(true);
         view_ParticipacaoRenovavelFrame.pack();
-        view_ParticipacaoRenovavelFrame.setLocationRelativeTo(null);
-        view_ParticipacaoRenovavelFrame.setEmail(email.getText());
+       
+        view_ParticipacaoRenovavelFrame.setEmail(email.getText());// envio do email do usuário para que seja possível fazer a consulta sql
         view_ParticipacaoRenovavelFrame.emails = email.getText();
-        view_ParticipacaoRenovavelFrame.setNome(usuario.getText());
+        view_ParticipacaoRenovavelFrame.setNome(usuario.getText());// nome enviado para o Home para quehaja continuidade enviada para as suas classes sujeitas
         this.dispose();
         }catch(Exception e) {System.out.println(e);}
                           
@@ -303,21 +303,21 @@ public class Home extends javax.swing.JFrame {
         view_ReducaoEmissao view_ReducaoEmissaoFrame = new view_ReducaoEmissao();
         view_ReducaoEmissaoFrame.setVisible(true);
         view_ReducaoEmissaoFrame.pack();
-        view_ReducaoEmissaoFrame.setLocationRelativeTo(null);
-        view_ReducaoEmissaoFrame.setEmail(email.getText());
+        
+        view_ReducaoEmissaoFrame.setEmail(email.getText());// envio do email do usuário para que seja possível fazer a consulta sql
         view_ReducaoEmissaoFrame.emails = email.getText();
-        view_ReducaoEmissaoFrame.setNome(usuario.getText());
+        view_ReducaoEmissaoFrame.setNome(usuario.getText());// nome enviado para o Home para quehaja continuidade enviada para as suas classes sujeitas
         this.dispose();
         }catch(Exception e) {System.out.println(e);}
                           
     }//GEN-LAST:event_reducaoHomeActionPerformed
      
-    public void usuario(String nome)
+    public void usuario(String nome)//puxando o nome
     {
         this.usuario.setText(nome);
     }
     
-    public String email(String email)
+    public String email(String email) //puxando o email
     {
         this.email.setText(email);
         
